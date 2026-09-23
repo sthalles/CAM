@@ -40,7 +40,7 @@ def get_requirements(path: str = HERE / "requirements.txt") -> Tuple[List[str], 
 
 
 def get_package_version() -> str:
-    with open(HERE / "dinov3/__init__.py") as f:
+    with open(HERE / "cam/__init__.py") as f:
         result = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
         if result:
             return result.group(1)

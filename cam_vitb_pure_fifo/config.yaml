@@ -2,10 +2,10 @@ MODEL:
   META_ARCHITECTURE: CAMMetaArch
   DEVICE: cuda
   WEIGHTS: ''
-  DTYPE: bfloat16
+  DTYPE: float32
 compute_precision:
   param_dtype: bf16
-  reduce_dtype: bf16
+  reduce_dtype: fp32
   sharding_strategy: SHARD_GRAD_OP
 dino:
   loss_weight: 1.0
@@ -62,13 +62,13 @@ gram:
   global_teacher_resize_antialias: false
   loss_weight_schedule: null
 train:
-  batch_size_per_gpu: 32
-  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/data/:extra=/cam/cam/data/extra
+  batch_size_per_gpu: 256
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/:extra=/cam/data/extra
   data_config: null
-  output_dir: /pfs/lustrep3/scratch/project_465002274/thalles.silva/cam/experiments/CAM_vitb_400ep
+  output_dir: /cluster/work/projects/nn8104k/silvatha/methods/cam/vitb_pure_fifo
   saveckp_freq: 20
   seed: 0
-  num_workers: 6
+  num_workers: 8
   OFFICIAL_EPOCH_LENGTH: 1250
   monitor_gradient_norm: false
   chunk_schedule: []
@@ -77,7 +77,7 @@ train:
   centering: sinkhorn_knopp
   checkpointing: false
   checkpointing_full: false
-  compile: false
+  compile: true
   cudagraphs: false
   sharded_eval_checkpoint: false
   cache_dataset: true
@@ -130,7 +130,7 @@ hrft:
   enabled: false
   checkpoint_path: ''
 optim:
-  epochs: 400
+  epochs: 50
   optimizer: adamw
   weight_decay: 0.04
   weight_decay_end: 0.4
@@ -174,7 +174,7 @@ crops:
   - 0.225
   teacher_to_student_resolution_scale: 1.0
 evaluation:
-  eval_period_iterations: 125000
+  eval_period_iterations: 12500
   low_freq_every: 5
   config_files:
     high_freq: benchmark_high_frequency.yaml
@@ -190,11 +190,11 @@ global_memory:
   head_bottleneck_dim: 256
   target_update_size: 512
   priority_ratio: 0.0
-  refinement_ratio: 0.15
+  refinement_ratio: 0.0
   usage_decay: 1
   refinement_momentum: 0.92
   threshold_initial: 0.85
-  refinement_update: true
+  refinement_update: false
   dedup_threshold: 0.95
   grace_period_ratio: 0.1
   k_winners: 5
@@ -205,11 +205,11 @@ local_memory:
   head_bottleneck_dim: 256
   target_update_size: 64
   priority_ratio: 0.0
-  refinement_ratio: 0.15
+  refinement_ratio: 0.0
   usage_decay: 1
   refinement_momentum: 0.9
   threshold_initial: 0.8
-  refinement_update: true
-  dedup_threshold: 0.95
+  refinement_update: false
+  dedup_threshold: 0.94
   grace_period_ratio: 0.2
   k_winners: 5

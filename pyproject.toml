@@ -3,7 +3,7 @@ python_version = "3.11"
 ignore_missing_imports = true
 files = "dinov3"
 exclude = '''(?x)(
-  ^dinov3/tests/([^/]+/)*test_.*\.py$  # Unit tests
+  ^cam/tests/([^/]+/)*test_.*\.py$  # Unit tests
 )'''
 
 [tool.pylint.master]

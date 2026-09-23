@@ -4,14 +4,14 @@ I20260208 16:55:34 108266 dinov3 config.py:209] git:
 
 I20260208 16:55:34 108266 dinov3 config.py:213] conda env name: pt2
 I20260208 16:55:34 108266 dinov3 config.py:214] conda env path: /fp/homes01/u01/ec-thallesss/.conda/envs/pt2
-I20260208 16:55:34 108266 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/2975159/tmp9d_p67j1']
+I20260208 16:55:34 108266 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_cam/cam/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/2975159/tmp9d_p67j1']
 I20260208 16:55:34 108266 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/config.yaml
 opts: []
 output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu
 pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth
 shard_unsharded_model: False
 I20260208 16:55:34 108266 dinov3 config.py:58] MODEL:
-  META_ARCHITECTURE: SSLMetaArch
+  META_ARCHITECTURE: CAMMetaArch
   DEVICE: cuda
   WEIGHTS: ''
   DTYPE: bfloat16
@@ -75,7 +75,7 @@ gram:
   loss_weight_schedule: null
 train:
   batch_size_per_gpu: 32
-  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/data/:extra=/dinov3/dinov3/data/extra
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/data/:extra=/cam/cam/data/extra
   data_config: null
   output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu
   saveckp_freq: 20
@@ -154,7 +154,7 @@ optim:
   freeze_last_layer_epochs: 1
   scaling_rule: sqrt_wrt_1024
   patch_embed_lr_mult: 0.2
-  dino_head_wd_multiplier: 1.0
+  cam_head_wd_multiplier: 1.0
   layerwise_decay: 0.9
   multi_tensor_optim: true
   dump_fsdp_weights_path: ''
@@ -239,7 +239,7 @@ I20260208 16:55:34 108266 dinov3 vision_transformer.py:137] using mlp layer as F
 I20260208 16:55:34 108266 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
 I20260208 16:55:34 108266 dinov3 __init__.py:122] PyTorch consolidated checkpoint
 I20260208 16:55:35 108266 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
-I20260208 16:55:35 108266 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+I20260208 16:55:35 108266 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['cam_head.mlp.0.weight', 'cam_head.mlp.0.bias', 'cam_head.mlp.2.weight', 'cam_head.mlp.2.bias', 'cam_head.mlp.4.weight', 'cam_head.mlp.4.bias', 'cam_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
 W20260208 16:55:35 108266 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
 W20260208 16:55:35 108266 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
 I20260208 16:55:35 108266 dinov3 run.py:122] Depth config:
@@ -431,7 +431,7 @@ Dataset NYU
       ToRGBDTensorPair()
       Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
       NormalizeDepth(normalization_factor=1000.0)
-      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x149e34100b00>
+      <cam.eval.depth.transforms.LeftRightFlipAug object at 0x149e34100b00>
 )
 I20260208 16:55:35 108266 dinov3 loaders.py:164] sampler: distributed
 I20260208 16:55:35 108266 dinov3 loaders.py:225] using PyTorch data loader
