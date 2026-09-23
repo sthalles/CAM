@@ -1,0 +1,512 @@
+I20260208 16:55:32 108266 dinov3 torch_distributed_wrapper.py:255] PyTorch distributed environment: TorchElastic job (none) using 127.0.0.1:29500 (rank=0, world size=1)
+I20260208 16:55:34 108266 dinov3 config.py:209] git:
+  sha: 54694f7627fd815f62a5dcc82944ffa6153bbb76, status: has uncommited changes, branch: main
+
+I20260208 16:55:34 108266 dinov3 config.py:213] conda env name: pt2
+I20260208 16:55:34 108266 dinov3 config.py:214] conda env path: /fp/homes01/u01/ec-thallesss/.conda/envs/pt2
+I20260208 16:55:34 108266 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/2975159/tmp9d_p67j1']
+I20260208 16:55:34 108266 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/config.yaml
+opts: []
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu
+pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth
+shard_unsharded_model: False
+I20260208 16:55:34 108266 dinov3 config.py:58] MODEL:
+  META_ARCHITECTURE: SSLMetaArch
+  DEVICE: cuda
+  WEIGHTS: ''
+  DTYPE: bfloat16
+compute_precision:
+  param_dtype: bf16
+  reduce_dtype: bf16
+  sharding_strategy: SHARD_GRAD_OP
+dino:
+  loss_weight: 1.0
+  global_ignore_diagonal: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+  koleo_loss_distributed: false
+  koleo_topk: 1
+  koleo_distributed_replicas: 0
+  koleo_distributed_loss_group_size: null
+  koleo_distributed_loss_group_data: true
+  force_weight_norm: false
+  reweight_dino_local_loss: false
+  local_loss_weight_schedule:
+    start: 0.5
+    peak: 0.5
+    end: 0.5
+    warmup_epochs: 0
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  mask_random_circular_shift: false
+  force_masking_even_with_zero_weight: false
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+gram:
+  use_loss: false
+  compute_stats: false
+  loss_weight: 1.0
+  ema_teacher: false
+  ckpt: null
+  it_load_ema_teacher: -1
+  rep_update: true
+  update_frequency: 50000
+  it_first_update: 0
+  max_updates: null
+  normalized: true
+  img_level: false
+  remove_neg: false
+  remove_only_teacher_neg: false
+  tokens_used: all
+  global_teacher_resize_method: bicubic
+  global_teacher_resize_antialias: false
+  loss_weight_schedule: null
+train:
+  batch_size_per_gpu: 32
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/data/:extra=/dinov3/dinov3/data/extra
+  data_config: null
+  output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 6
+  OFFICIAL_EPOCH_LENGTH: 1250
+  monitor_gradient_norm: false
+  chunk_schedule: []
+  use_teacher_head: true
+  learn_from_teacher_tokens: false
+  centering: sinkhorn_knopp
+  checkpointing: false
+  checkpointing_full: false
+  compile: false
+  cudagraphs: false
+  sharded_eval_checkpoint: false
+  cache_dataset: true
+  cell_augmentation: false
+  cell_augmentation_type: hpa
+student:
+  arch: vit_base
+  patch_size: 16
+  drop_path_rate: 0.1
+  layerscale: 1.0e-05
+  pretrained_weights: ''
+  ffn_layer: mlp
+  ffn_ratio: 4.0
+  resume_from_teacher_chkpt: ''
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  norm_layer: layernorm
+  n_storage_tokens: 0
+  mask_k_bias: false
+  untie_cls_and_patch_norms: false
+  untie_global_and_local_cls_norm: false
+  in_chans: 3
+  pos_embed_type: rope
+  pos_embed_rope_base: 100.0
+  pos_embed_rope_min_period: null
+  pos_embed_rope_max_period: null
+  pos_embed_rope_normalize_coords: separate
+  pos_embed_rope_shift_coords: null
+  pos_embed_rope_jitter_coords: null
+  pos_embed_rope_rescale_coords: null
+  pos_embed_rope_dtype: bf16
+  fp8_enabled: false
+  fp8_filter: blocks
+  patch_drop: 0.0
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+  in_chans: 3
+distillation:
+  enabled: false
+  full_cfg_path: ''
+  checkpoint_path: ''
+multidistillation:
+  enabled: false
+hrft:
+  enabled: false
+  checkpoint_path: ''
+optim:
+  epochs: 200
+  optimizer: adamw
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  lr: 0.001
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  schedule_trunc_extra: 0.0
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  dino_head_wd_multiplier: 1.0
+  layerwise_decay: 0.9
+  multi_tensor_optim: true
+  dump_fsdp_weights_path: ''
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+  global_local_crop_pairs_ratios: 1.0
+  gram_teacher_crops_size: null
+  localcrops_subset_of_globalcrops: false
+  share_color_jitter: false
+  horizontal_flips: true
+  gram_teacher_no_distortions: false
+  rgb_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  rgb_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  teacher_to_student_resolution_scale: 1.0
+evaluation:
+  eval_period_iterations: 12500
+  low_freq_every: 5
+  config_files:
+    high_freq: benchmark_high_frequency.yaml
+    low_freq: benchmark_low_frequency.yaml
+checkpointing:
+  period: 3750
+  max_to_keep: 1
+  keep_every: 99999999999999999
+global_memory:
+  partition_size: 4096
+  num_tasks: 8
+  memory_size: 65536
+  head_bottleneck_dim: 256
+  target_update_size: 512
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.92
+  threshold_initial: 0.85
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.1
+  k_winners: 5
+local_memory:
+  partition_size: 512
+  num_tasks: 8
+  memory_size: 8192
+  head_bottleneck_dim: 256
+  target_update_size: 64
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.9
+  threshold_initial: 0.8
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.2
+  k_winners: 5
+
+I20260208 16:55:34 108266 dinov3 config.py:53] sqrt scaling learning rate; old: 0.001, new: 0.0007071067811865476
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:116] using base=100.0 for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:117] using min_period=None for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:118] using max_period=None for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:119] using normalize_coords=separate for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:120] using shift_coords=None for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:121] using rescale_coords=None for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:122] using jitter_coords=None for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:123] using dtype=bf16 for rope new
+I20260208 16:55:34 108266 dinov3 vision_transformer.py:137] using mlp layer as FFN
+I20260208 16:55:34 108266 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
+I20260208 16:55:34 108266 dinov3 __init__.py:122] PyTorch consolidated checkpoint
+I20260208 16:55:35 108266 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
+I20260208 16:55:35 108266 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+W20260208 16:55:35 108266 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
+W20260208 16:55:35 108266 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
+I20260208 16:55:35 108266 dinov3 run.py:122] Depth config:
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu
+
+I20260208 16:55:35 108266 dinov3 run.py:43] Using config: 
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu
+
+I20260208 16:55:35 108266 dinov3 loaders.py:100] using dataset: "NYU:split=VAL:root=/fp/projects01/ec35/data/NYU"
+I20260208 16:55:35 108266 dinov3 loaders.py:105] # of dataset samples: 654
+I20260208 16:55:35 108266 dinov3 data.py:66] Dataset test:
+Dataset NYU
+    Number of datapoints: 654
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.FULL)
+      ToRGBDTensorPair()
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+      NormalizeDepth(normalization_factor=1000.0)
+      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x149e34100b00>
+)
+I20260208 16:55:35 108266 dinov3 loaders.py:164] sampler: distributed
+I20260208 16:55:35 108266 dinov3 loaders.py:225] using PyTorch data loader
+I20260208 16:55:35 108266 dinov3 loaders.py:239] # of batches: 654
+I20260208 16:55:36 108266 dinov3 helpers.py:105] Validation:   [  0/654]  eta: 0:09:41    time: 0.889765  data: 0.129445  mem: 345  (max mem: 402)
+I20260208 16:55:36 108266 dinov3 helpers.py:105] Validation:   [ 10/654]  eta: 0:01:03    time: 0.098632  data: 0.013010  mem: 345  (max mem: 403)
+I20260208 16:55:36 108266 dinov3 helpers.py:105] Validation:   [ 20/654]  eta: 0:00:39    time: 0.020959  data: 0.002910  mem: 345  (max mem: 403)
+I20260208 16:55:36 108266 dinov3 helpers.py:105] Validation:   [ 30/654]  eta: 0:00:31    time: 0.023448  data: 0.005686  mem: 345  (max mem: 403)
+I20260208 16:55:36 108266 dinov3 helpers.py:105] Validation:   [ 40/654]  eta: 0:00:26    time: 0.023063  data: 0.005363  mem: 345  (max mem: 403)
+I20260208 16:55:37 108266 dinov3 helpers.py:105] Validation:   [ 50/654]  eta: 0:00:23    time: 0.020433  data: 0.002333  mem: 345  (max mem: 403)
+I20260208 16:55:37 108266 dinov3 helpers.py:105] Validation:   [ 60/654]  eta: 0:00:20    time: 0.018771  data: 0.000500  mem: 345  (max mem: 403)
+I20260208 16:55:37 108266 dinov3 helpers.py:105] Validation:   [ 70/654]  eta: 0:00:19    time: 0.018374  data: 0.000143  mem: 345  (max mem: 403)
+I20260208 16:55:37 108266 dinov3 helpers.py:105] Validation:   [ 80/654]  eta: 0:00:17    time: 0.018373  data: 0.000139  mem: 345  (max mem: 403)
+I20260208 16:55:37 108266 dinov3 helpers.py:105] Validation:   [ 90/654]  eta: 0:00:16    time: 0.018283  data: 0.000143  mem: 345  (max mem: 403)
+I20260208 16:55:38 108266 dinov3 helpers.py:105] Validation:   [100/654]  eta: 0:00:15    time: 0.018288  data: 0.000144  mem: 345  (max mem: 403)
+I20260208 16:55:38 108266 dinov3 helpers.py:105] Validation:   [110/654]  eta: 0:00:15    time: 0.018364  data: 0.000138  mem: 345  (max mem: 403)
+I20260208 16:55:38 108266 dinov3 helpers.py:105] Validation:   [120/654]  eta: 0:00:14    time: 0.018478  data: 0.000141  mem: 345  (max mem: 403)
+I20260208 16:55:38 108266 dinov3 helpers.py:105] Validation:   [130/654]  eta: 0:00:13    time: 0.018443  data: 0.000144  mem: 346  (max mem: 403)
+I20260208 16:55:38 108266 dinov3 helpers.py:105] Validation:   [140/654]  eta: 0:00:13    time: 0.018179  data: 0.000147  mem: 346  (max mem: 403)
+I20260208 16:55:39 108266 dinov3 helpers.py:105] Validation:   [150/654]  eta: 0:00:12    time: 0.018061  data: 0.000147  mem: 346  (max mem: 403)
+I20260208 16:55:39 108266 dinov3 helpers.py:105] Validation:   [160/654]  eta: 0:00:12    time: 0.018135  data: 0.000139  mem: 346  (max mem: 403)
+I20260208 16:55:39 108266 dinov3 helpers.py:105] Validation:   [170/654]  eta: 0:00:11    time: 0.018108  data: 0.000136  mem: 346  (max mem: 403)
+I20260208 16:55:39 108266 dinov3 helpers.py:105] Validation:   [180/654]  eta: 0:00:11    time: 0.018117  data: 0.000137  mem: 346  (max mem: 403)
+I20260208 16:55:39 108266 dinov3 helpers.py:105] Validation:   [190/654]  eta: 0:00:10    time: 0.018306  data: 0.000144  mem: 346  (max mem: 403)
+I20260208 16:55:39 108266 dinov3 helpers.py:105] Validation:   [200/654]  eta: 0:00:10    time: 0.018350  data: 0.000150  mem: 346  (max mem: 403)
+I20260208 16:55:40 108266 dinov3 helpers.py:105] Validation:   [210/654]  eta: 0:00:10    time: 0.018274  data: 0.000144  mem: 346  (max mem: 403)
+I20260208 16:55:40 108266 dinov3 helpers.py:105] Validation:   [220/654]  eta: 0:00:09    time: 0.018283  data: 0.000139  mem: 346  (max mem: 403)
+I20260208 16:55:40 108266 dinov3 helpers.py:105] Validation:   [230/654]  eta: 0:00:09    time: 0.018308  data: 0.000143  mem: 346  (max mem: 403)
+I20260208 16:55:40 108266 dinov3 helpers.py:105] Validation:   [240/654]  eta: 0:00:09    time: 0.018375  data: 0.000148  mem: 346  (max mem: 403)
+I20260208 16:55:40 108266 dinov3 helpers.py:105] Validation:   [250/654]  eta: 0:00:09    time: 0.019198  data: 0.001154  mem: 346  (max mem: 403)
+I20260208 16:55:41 108266 dinov3 helpers.py:105] Validation:   [260/654]  eta: 0:00:08    time: 0.019141  data: 0.001153  mem: 346  (max mem: 403)
+I20260208 16:55:41 108266 dinov3 helpers.py:105] Validation:   [270/654]  eta: 0:00:08    time: 0.019713  data: 0.001692  mem: 346  (max mem: 403)
+I20260208 16:55:41 108266 dinov3 helpers.py:105] Validation:   [280/654]  eta: 0:00:08    time: 0.022120  data: 0.004171  mem: 346  (max mem: 403)
+I20260208 16:55:41 108266 dinov3 helpers.py:105] Validation:   [290/654]  eta: 0:00:08    time: 0.020622  data: 0.002631  mem: 346  (max mem: 403)
+I20260208 16:55:41 108266 dinov3 helpers.py:105] Validation:   [300/654]  eta: 0:00:07    time: 0.019907  data: 0.001886  mem: 346  (max mem: 403)
+I20260208 16:55:42 108266 dinov3 helpers.py:105] Validation:   [310/654]  eta: 0:00:07    time: 0.020017  data: 0.001883  mem: 346  (max mem: 403)
+I20260208 16:55:42 108266 dinov3 helpers.py:105] Validation:   [320/654]  eta: 0:00:07    time: 0.018398  data: 0.000147  mem: 346  (max mem: 403)
+I20260208 16:55:42 108266 dinov3 helpers.py:105] Validation:   [330/654]  eta: 0:00:07    time: 0.018429  data: 0.000147  mem: 346  (max mem: 403)
+I20260208 16:55:42 108266 dinov3 helpers.py:105] Validation:   [340/654]  eta: 0:00:06    time: 0.018296  data: 0.000146  mem: 346  (max mem: 403)
+I20260208 16:55:42 108266 dinov3 helpers.py:105] Validation:   [350/654]  eta: 0:00:06    time: 0.018209  data: 0.000146  mem: 346  (max mem: 403)
+I20260208 16:55:43 108266 dinov3 helpers.py:105] Validation:   [360/654]  eta: 0:00:06    time: 0.018896  data: 0.000834  mem: 346  (max mem: 403)
+I20260208 16:55:43 108266 dinov3 helpers.py:105] Validation:   [370/654]  eta: 0:00:06    time: 0.018890  data: 0.000835  mem: 346  (max mem: 403)
+I20260208 16:55:43 108266 dinov3 helpers.py:105] Validation:   [380/654]  eta: 0:00:05    time: 0.018369  data: 0.000179  mem: 346  (max mem: 403)
+I20260208 16:55:43 108266 dinov3 helpers.py:105] Validation:   [390/654]  eta: 0:00:05    time: 0.018659  data: 0.000172  mem: 346  (max mem: 403)
+I20260208 16:55:43 108266 dinov3 helpers.py:105] Validation:   [400/654]  eta: 0:00:05    time: 0.018602  data: 0.000144  mem: 346  (max mem: 403)
+I20260208 16:55:43 108266 dinov3 helpers.py:105] Validation:   [410/654]  eta: 0:00:05    time: 0.021078  data: 0.002942  mem: 346  (max mem: 403)
+I20260208 16:55:44 108266 dinov3 helpers.py:105] Validation:   [420/654]  eta: 0:00:04    time: 0.021291  data: 0.002936  mem: 346  (max mem: 403)
+I20260208 16:55:44 108266 dinov3 helpers.py:105] Validation:   [430/654]  eta: 0:00:04    time: 0.018567  data: 0.000138  mem: 346  (max mem: 403)
+I20260208 16:55:44 108266 dinov3 helpers.py:105] Validation:   [440/654]  eta: 0:00:04    time: 0.018542  data: 0.000338  mem: 346  (max mem: 403)
+I20260208 16:55:44 108266 dinov3 helpers.py:105] Validation:   [450/654]  eta: 0:00:04    time: 0.021286  data: 0.003130  mem: 346  (max mem: 403)
+I20260208 16:55:44 108266 dinov3 helpers.py:105] Validation:   [460/654]  eta: 0:00:04    time: 0.021769  data: 0.003573  mem: 346  (max mem: 403)
+I20260208 16:55:45 108266 dinov3 helpers.py:105] Validation:   [470/654]  eta: 0:00:03    time: 0.018907  data: 0.000788  mem: 346  (max mem: 403)
+I20260208 16:55:45 108266 dinov3 helpers.py:105] Validation:   [480/654]  eta: 0:00:03    time: 0.018411  data: 0.000369  mem: 346  (max mem: 403)
+I20260208 16:55:45 108266 dinov3 helpers.py:105] Validation:   [490/654]  eta: 0:00:03    time: 0.019046  data: 0.000592  mem: 346  (max mem: 403)
+I20260208 16:55:45 108266 dinov3 helpers.py:105] Validation:   [500/654]  eta: 0:00:03    time: 0.018863  data: 0.000368  mem: 346  (max mem: 403)
+I20260208 16:55:45 108266 dinov3 helpers.py:105] Validation:   [510/654]  eta: 0:00:03    time: 0.018350  data: 0.000143  mem: 346  (max mem: 403)
+I20260208 16:55:46 108266 dinov3 helpers.py:105] Validation:   [520/654]  eta: 0:00:02    time: 0.018434  data: 0.000147  mem: 346  (max mem: 403)
+I20260208 16:55:46 108266 dinov3 helpers.py:105] Validation:   [530/654]  eta: 0:00:02    time: 0.018500  data: 0.000148  mem: 346  (max mem: 403)
+I20260208 16:55:46 108266 dinov3 helpers.py:105] Validation:   [540/654]  eta: 0:00:02    time: 0.018338  data: 0.000144  mem: 346  (max mem: 403)
+I20260208 16:55:46 108266 dinov3 helpers.py:105] Validation:   [550/654]  eta: 0:00:02    time: 0.018301  data: 0.000139  mem: 346  (max mem: 403)
+I20260208 16:55:46 108266 dinov3 helpers.py:105] Validation:   [560/654]  eta: 0:00:01    time: 0.018355  data: 0.000140  mem: 346  (max mem: 403)
+I20260208 16:55:47 108266 dinov3 helpers.py:105] Validation:   [570/654]  eta: 0:00:01    time: 0.018384  data: 0.000145  mem: 346  (max mem: 403)
+I20260208 16:55:47 108266 dinov3 helpers.py:105] Validation:   [580/654]  eta: 0:00:01    time: 0.018329  data: 0.000149  mem: 346  (max mem: 403)
+I20260208 16:55:47 108266 dinov3 helpers.py:105] Validation:   [590/654]  eta: 0:00:01    time: 0.018435  data: 0.000221  mem: 346  (max mem: 403)
+I20260208 16:55:47 108266 dinov3 helpers.py:105] Validation:   [600/654]  eta: 0:00:01    time: 0.018561  data: 0.000217  mem: 346  (max mem: 403)
+I20260208 16:55:47 108266 dinov3 helpers.py:105] Validation:   [610/654]  eta: 0:00:00    time: 0.018361  data: 0.000142  mem: 346  (max mem: 403)
+I20260208 16:55:47 108266 dinov3 helpers.py:105] Validation:   [620/654]  eta: 0:00:00    time: 0.018148  data: 0.000148  mem: 346  (max mem: 403)
+I20260208 16:55:48 108266 dinov3 helpers.py:105] Validation:   [630/654]  eta: 0:00:00    time: 0.018153  data: 0.000147  mem: 346  (max mem: 403)
+I20260208 16:55:48 108266 dinov3 helpers.py:105] Validation:   [640/654]  eta: 0:00:00    time: 0.018123  data: 0.000141  mem: 346  (max mem: 403)
+I20260208 16:55:48 108266 dinov3 helpers.py:105] Validation:   [650/654]  eta: 0:00:00    time: 0.018019  data: 0.000146  mem: 346  (max mem: 403)
+I20260208 16:55:48 108266 dinov3 helpers.py:105] Validation:   [653/654]  eta: 0:00:00    time: 0.017906  data: 0.000143  mem: 346  (max mem: 403)
+I20260208 16:55:48 108266 dinov3 helpers.py:133] Validation:  Total time: 0:00:13 (0.020403 s / it)
+I20260208 16:55:48 108266 dinov3 eval.py:210] Final scores: a1: 0.728 abs_rel: 0.192 rmse: 0.586
+I20260208 16:55:48 108266 dinov3 run.py:68]  
+====== Summary ======
+NYU        a1: 0.728 abs_rel: 0.192 rmse: 0.586
+=====================
+I20260208 16:55:48 108266 dinov3 helpers.py:27] Saving results to /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/depth_training_nyu/results-depth.csv

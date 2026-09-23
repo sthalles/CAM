@@ -1,0 +1,87 @@
+model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_200ep/eval/training_249999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: null
+output_dir: .

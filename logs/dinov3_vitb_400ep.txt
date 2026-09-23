@@ -1,0 +1,1765 @@
+I20260216 19:05:09 4154516 dinov3 torch_distributed_wrapper.py:255] PyTorch distributed environment: TorchElastic job (none) using 127.0.0.1:29500 (rank=0, world size=4)
+I20260216 19:05:10 4154516 dinov3 config.py:209] git:
+  sha: 54694f7627fd815f62a5dcc82944ffa6153bbb76, status: has uncommited changes, branch: main
+
+I20260216 19:05:10 4154516 dinov3 config.py:213] conda env name: pt2
+I20260216 19:05:10 4154516 dinov3 config.py:214] conda env path: /fp/homes01/u01/ec-thallesss/.conda/envs/pt2
+I20260216 19:05:10 4154516 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/3008018/tmpajy05f_0']
+I20260216 19:05:10 4154516 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+opts: []
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+shard_unsharded_model: False
+I20260216 19:05:10 4154516 dinov3 config.py:58] MODEL:
+  META_ARCHITECTURE: SSLMetaArch
+  DEVICE: cuda
+  WEIGHTS: ''
+  DTYPE: bfloat16
+compute_precision:
+  param_dtype: bf16
+  reduce_dtype: bf16
+  sharding_strategy: SHARD_GRAD_OP
+dino:
+  loss_weight: 1.0
+  global_ignore_diagonal: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+  koleo_loss_distributed: false
+  koleo_topk: 1
+  koleo_distributed_replicas: 0
+  koleo_distributed_loss_group_size: null
+  koleo_distributed_loss_group_data: true
+  force_weight_norm: false
+  reweight_dino_local_loss: false
+  local_loss_weight_schedule:
+    start: 0.5
+    peak: 0.5
+    end: 0.5
+    warmup_epochs: 0
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  mask_random_circular_shift: false
+  force_masking_even_with_zero_weight: false
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+gram:
+  use_loss: false
+  compute_stats: false
+  loss_weight: 1.0
+  ema_teacher: false
+  ckpt: null
+  it_load_ema_teacher: -1
+  rep_update: true
+  update_frequency: 50000
+  it_first_update: 0
+  max_updates: null
+  normalized: true
+  img_level: false
+  remove_neg: false
+  remove_only_teacher_neg: false
+  tokens_used: all
+  global_teacher_resize_method: bicubic
+  global_teacher_resize_antialias: false
+  loss_weight_schedule: null
+train:
+  batch_size_per_gpu: 128
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/:extra=/dinov3/data/extra
+  data_config: null
+  output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 6
+  OFFICIAL_EPOCH_LENGTH: 1250
+  monitor_gradient_norm: false
+  chunk_schedule: []
+  use_teacher_head: true
+  learn_from_teacher_tokens: false
+  centering: sinkhorn_knopp
+  checkpointing: false
+  checkpointing_full: false
+  compile: false
+  cudagraphs: false
+  sharded_eval_checkpoint: false
+  cache_dataset: true
+  cell_augmentation: false
+  cell_augmentation_type: hpa
+student:
+  arch: vit_base
+  patch_size: 16
+  drop_path_rate: 0.1
+  layerscale: 1.0e-05
+  pretrained_weights: ''
+  ffn_layer: mlp
+  ffn_ratio: 4.0
+  resume_from_teacher_chkpt: ''
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  norm_layer: layernorm
+  n_storage_tokens: 0
+  mask_k_bias: false
+  untie_cls_and_patch_norms: false
+  untie_global_and_local_cls_norm: false
+  in_chans: 3
+  pos_embed_type: rope
+  pos_embed_rope_base: 100.0
+  pos_embed_rope_min_period: null
+  pos_embed_rope_max_period: null
+  pos_embed_rope_normalize_coords: separate
+  pos_embed_rope_shift_coords: null
+  pos_embed_rope_jitter_coords: null
+  pos_embed_rope_rescale_coords: null
+  pos_embed_rope_dtype: bf16
+  fp8_enabled: false
+  fp8_filter: blocks
+  patch_drop: 0.0
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+  in_chans: 3
+distillation:
+  enabled: false
+  full_cfg_path: ''
+  checkpoint_path: ''
+multidistillation:
+  enabled: false
+hrft:
+  enabled: false
+  checkpoint_path: ''
+optim:
+  epochs: 400
+  optimizer: adamw
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  lr: 0.001
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  schedule_trunc_extra: 0.0
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  dino_head_wd_multiplier: 1.0
+  layerwise_decay: 0.9
+  multi_tensor_optim: true
+  dump_fsdp_weights_path: ''
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+  global_local_crop_pairs_ratios: 1.0
+  gram_teacher_crops_size: null
+  localcrops_subset_of_globalcrops: false
+  share_color_jitter: false
+  horizontal_flips: true
+  gram_teacher_no_distortions: false
+  rgb_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  rgb_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  teacher_to_student_resolution_scale: 1.0
+evaluation:
+  eval_period_iterations: 125000
+  low_freq_every: 5
+  config_files:
+    high_freq: benchmark_high_frequency.yaml
+    low_freq: benchmark_low_frequency.yaml
+checkpointing:
+  period: 3750
+  max_to_keep: 1
+  keep_every: 99999999999999999
+global_memory:
+  partition_size: 4096
+  num_tasks: 8
+  memory_size: 65536
+  head_bottleneck_dim: 256
+  target_update_size: 512
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.92
+  threshold_initial: 0.85
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.1
+  k_winners: 5
+local_memory:
+  partition_size: 512
+  num_tasks: 8
+  memory_size: 8192
+  head_bottleneck_dim: 256
+  target_update_size: 64
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.9
+  threshold_initial: 0.8
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.2
+  k_winners: 5
+
+I20260216 19:05:10 4154516 dinov3 config.py:53] sqrt scaling learning rate; old: 0.001, new: 0.0028284271247461905
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:116] using base=100.0 for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:117] using min_period=None for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:118] using max_period=None for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:119] using normalize_coords=separate for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:120] using shift_coords=None for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:121] using rescale_coords=None for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:122] using jitter_coords=None for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:123] using dtype=bf16 for rope new
+I20260216 19:05:10 4154516 dinov3 vision_transformer.py:137] using mlp layer as FFN
+I20260216 19:05:10 4154516 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
+I20260216 19:05:10 4154516 dinov3 __init__.py:122] PyTorch consolidated checkpoint
+I20260216 19:05:11 4154516 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
+I20260216 19:05:11 4154516 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+I20260216 19:05:11 4154516 dinov3 train.py:290] Config:
+model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: null
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+W20260216 19:05:11 4154516 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
+W20260216 19:05:11 4154516 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
+I20260216 19:05:12 4154516 dinov3 utils.py:76] Model moved to rank 0
+I20260216 19:05:12 4154516 dinov3 loaders.py:100] using dataset: "NYU:split=TRAIN:root=/fp/projects01/ec35/data/NYU"
+I20260216 19:05:12 4154516 dinov3 loaders.py:105] # of dataset samples: 24,231
+I20260216 19:05:12 4154516 dinov3 data.py:66] Dataset train:
+Dataset NYU
+    Number of datapoints: 24231
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.NYU)
+      ToRGBDTensorPair()
+      NormalizeDepth(normalization_factor=1000.0)
+      MaybeApply(
+    (_transform): Compose(    RandomRotation(degrees=[-2.5, 2.5], interpolation=InterpolationMode.BILINEAR, expand=False, fill=0))
+  )
+      RandomHorizontalFlip(p=0.5)
+      RandomCrop(size=[416, 544], pad_if_needed=False, fill=0, padding_mode=constant)
+      ColorAug(
+  	gamma_range=(0.9, 1.1),
+  	brightness_range=[0.75, 1.25],
+  	color_range=(0.9, 1.1),
+  	prob=0.5,)
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+)
+I20260216 19:05:12 4154516 dinov3 loaders.py:164] sampler: distributed
+I20260216 19:05:12 4154516 dinov3 loaders.py:225] using PyTorch data loader
+I20260216 19:05:12 4154516 dinov3 loaders.py:239] # of batches: 3,029
+I20260216 19:05:12 4154516 dinov3 loaders.py:100] using dataset: "NYU:split=VAL:root=/fp/projects01/ec35/data/NYU"
+I20260216 19:05:12 4154516 dinov3 loaders.py:105] # of dataset samples: 654
+I20260216 19:05:12 4154516 dinov3 data.py:66] Dataset val:
+Dataset NYU
+    Number of datapoints: 654
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.FULL)
+      ToRGBDTensorPair()
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+      NormalizeDepth(normalization_factor=1000.0)
+      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x151aba9df380>
+)
+I20260216 19:05:12 4154516 dinov3 loaders.py:164] sampler: distributed
+I20260216 19:05:12 4154516 dinov3 loaders.py:225] using PyTorch data loader
+I20260216 19:05:12 4154516 dinov3 loaders.py:239] # of batches: 164
+I20260216 19:05:12 4154516 dinov3 train.py:230] RESUMING CHECKPOINT from /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+I20260216 19:05:24 4154623 dinov3 torch_distributed_wrapper.py:255] PyTorch distributed environment: TorchElastic job (none) using 127.0.0.1:29500 (rank=0, world size=4)
+I20260216 19:05:25 4154623 dinov3 config.py:209] git:
+  sha: 54694f7627fd815f62a5dcc82944ffa6153bbb76, status: has uncommited changes, branch: main
+
+I20260216 19:05:25 4154623 dinov3 config.py:213] conda env name: pt2
+I20260216 19:05:25 4154623 dinov3 config.py:214] conda env path: /fp/homes01/u01/ec-thallesss/.conda/envs/pt2
+I20260216 19:05:25 4154623 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/3008018/tmp50ysw6xl']
+I20260216 19:05:25 4154623 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+opts: []
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+shard_unsharded_model: False
+I20260216 19:05:25 4154623 dinov3 config.py:58] MODEL:
+  META_ARCHITECTURE: SSLMetaArch
+  DEVICE: cuda
+  WEIGHTS: ''
+  DTYPE: bfloat16
+compute_precision:
+  param_dtype: bf16
+  reduce_dtype: bf16
+  sharding_strategy: SHARD_GRAD_OP
+dino:
+  loss_weight: 1.0
+  global_ignore_diagonal: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+  koleo_loss_distributed: false
+  koleo_topk: 1
+  koleo_distributed_replicas: 0
+  koleo_distributed_loss_group_size: null
+  koleo_distributed_loss_group_data: true
+  force_weight_norm: false
+  reweight_dino_local_loss: false
+  local_loss_weight_schedule:
+    start: 0.5
+    peak: 0.5
+    end: 0.5
+    warmup_epochs: 0
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  mask_random_circular_shift: false
+  force_masking_even_with_zero_weight: false
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+gram:
+  use_loss: false
+  compute_stats: false
+  loss_weight: 1.0
+  ema_teacher: false
+  ckpt: null
+  it_load_ema_teacher: -1
+  rep_update: true
+  update_frequency: 50000
+  it_first_update: 0
+  max_updates: null
+  normalized: true
+  img_level: false
+  remove_neg: false
+  remove_only_teacher_neg: false
+  tokens_used: all
+  global_teacher_resize_method: bicubic
+  global_teacher_resize_antialias: false
+  loss_weight_schedule: null
+train:
+  batch_size_per_gpu: 128
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/:extra=/dinov3/data/extra
+  data_config: null
+  output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 6
+  OFFICIAL_EPOCH_LENGTH: 1250
+  monitor_gradient_norm: false
+  chunk_schedule: []
+  use_teacher_head: true
+  learn_from_teacher_tokens: false
+  centering: sinkhorn_knopp
+  checkpointing: false
+  checkpointing_full: false
+  compile: false
+  cudagraphs: false
+  sharded_eval_checkpoint: false
+  cache_dataset: true
+  cell_augmentation: false
+  cell_augmentation_type: hpa
+student:
+  arch: vit_base
+  patch_size: 16
+  drop_path_rate: 0.1
+  layerscale: 1.0e-05
+  pretrained_weights: ''
+  ffn_layer: mlp
+  ffn_ratio: 4.0
+  resume_from_teacher_chkpt: ''
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  norm_layer: layernorm
+  n_storage_tokens: 0
+  mask_k_bias: false
+  untie_cls_and_patch_norms: false
+  untie_global_and_local_cls_norm: false
+  in_chans: 3
+  pos_embed_type: rope
+  pos_embed_rope_base: 100.0
+  pos_embed_rope_min_period: null
+  pos_embed_rope_max_period: null
+  pos_embed_rope_normalize_coords: separate
+  pos_embed_rope_shift_coords: null
+  pos_embed_rope_jitter_coords: null
+  pos_embed_rope_rescale_coords: null
+  pos_embed_rope_dtype: bf16
+  fp8_enabled: false
+  fp8_filter: blocks
+  patch_drop: 0.0
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+  in_chans: 3
+distillation:
+  enabled: false
+  full_cfg_path: ''
+  checkpoint_path: ''
+multidistillation:
+  enabled: false
+hrft:
+  enabled: false
+  checkpoint_path: ''
+optim:
+  epochs: 400
+  optimizer: adamw
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  lr: 0.001
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  schedule_trunc_extra: 0.0
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  dino_head_wd_multiplier: 1.0
+  layerwise_decay: 0.9
+  multi_tensor_optim: true
+  dump_fsdp_weights_path: ''
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+  global_local_crop_pairs_ratios: 1.0
+  gram_teacher_crops_size: null
+  localcrops_subset_of_globalcrops: false
+  share_color_jitter: false
+  horizontal_flips: true
+  gram_teacher_no_distortions: false
+  rgb_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  rgb_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  teacher_to_student_resolution_scale: 1.0
+evaluation:
+  eval_period_iterations: 125000
+  low_freq_every: 5
+  config_files:
+    high_freq: benchmark_high_frequency.yaml
+    low_freq: benchmark_low_frequency.yaml
+checkpointing:
+  period: 3750
+  max_to_keep: 1
+  keep_every: 99999999999999999
+global_memory:
+  partition_size: 4096
+  num_tasks: 8
+  memory_size: 65536
+  head_bottleneck_dim: 256
+  target_update_size: 512
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.92
+  threshold_initial: 0.85
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.1
+  k_winners: 5
+local_memory:
+  partition_size: 512
+  num_tasks: 8
+  memory_size: 8192
+  head_bottleneck_dim: 256
+  target_update_size: 64
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.9
+  threshold_initial: 0.8
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.2
+  k_winners: 5
+
+I20260216 19:05:25 4154623 dinov3 config.py:53] sqrt scaling learning rate; old: 0.001, new: 0.0028284271247461905
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:116] using base=100.0 for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:117] using min_period=None for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:118] using max_period=None for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:119] using normalize_coords=separate for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:120] using shift_coords=None for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:121] using rescale_coords=None for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:122] using jitter_coords=None for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:123] using dtype=bf16 for rope new
+I20260216 19:05:26 4154623 dinov3 vision_transformer.py:137] using mlp layer as FFN
+I20260216 19:05:26 4154623 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
+I20260216 19:05:26 4154623 dinov3 __init__.py:122] PyTorch consolidated checkpoint
+I20260216 19:05:26 4154623 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
+I20260216 19:05:26 4154623 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+W20260216 19:05:26 4154623 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
+W20260216 19:05:26 4154623 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
+I20260216 19:05:26 4154623 dinov3 run.py:122] Depth config:
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+I20260216 19:05:26 4154623 dinov3 run.py:43] Using config: 
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+I20260216 19:05:26 4154623 dinov3 loaders.py:100] using dataset: "NYU:split=VAL:root=/fp/projects01/ec35/data/NYU"
+I20260216 19:05:26 4154623 dinov3 loaders.py:105] # of dataset samples: 654
+I20260216 19:05:26 4154623 dinov3 data.py:66] Dataset test:
+Dataset NYU
+    Number of datapoints: 654
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.FULL)
+      ToRGBDTensorPair()
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+      NormalizeDepth(normalization_factor=1000.0)
+      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x148e88aa51c0>
+)
+I20260216 19:05:26 4154623 dinov3 loaders.py:164] sampler: distributed
+I20260216 19:05:26 4154623 dinov3 loaders.py:225] using PyTorch data loader
+I20260216 19:05:26 4154623 dinov3 loaders.py:239] # of batches: 164
+I20260216 19:05:27 4154623 dinov3 helpers.py:105] Validation:   [  0/164]  eta: 0:02:50    time: 1.038631  data: 0.136585  mem: 346  (max mem: 402)
+I20260216 19:05:27 4154623 dinov3 helpers.py:105] Validation:   [ 10/164]  eta: 0:00:17    time: 0.114501  data: 0.012635  mem: 346  (max mem: 403)
+I20260216 19:05:27 4154623 dinov3 helpers.py:105] Validation:   [ 20/164]  eta: 0:00:09    time: 0.020949  data: 0.000234  mem: 346  (max mem: 403)
+I20260216 19:05:28 4154623 dinov3 helpers.py:105] Validation:   [ 30/164]  eta: 0:00:07    time: 0.019923  data: 0.000258  mem: 346  (max mem: 403)
+I20260216 19:05:28 4154623 dinov3 helpers.py:105] Validation:   [ 40/164]  eta: 0:00:05    time: 0.020190  data: 0.000282  mem: 346  (max mem: 403)
+I20260216 19:05:28 4154623 dinov3 helpers.py:105] Validation:   [ 50/164]  eta: 0:00:04    time: 0.020287  data: 0.000247  mem: 347  (max mem: 403)
+I20260216 19:05:28 4154623 dinov3 helpers.py:105] Validation:   [ 60/164]  eta: 0:00:03    time: 0.020685  data: 0.000770  mem: 347  (max mem: 403)
+I20260216 19:05:28 4154623 dinov3 helpers.py:105] Validation:   [ 70/164]  eta: 0:00:03    time: 0.020556  data: 0.000771  mem: 347  (max mem: 403)
+I20260216 19:05:29 4154623 dinov3 helpers.py:105] Validation:   [ 80/164]  eta: 0:00:02    time: 0.020175  data: 0.000217  mem: 347  (max mem: 403)
+I20260216 19:05:29 4154623 dinov3 helpers.py:105] Validation:   [ 90/164]  eta: 0:00:02    time: 0.020551  data: 0.000210  mem: 347  (max mem: 403)
+I20260216 19:05:29 4154623 dinov3 helpers.py:105] Validation:   [100/164]  eta: 0:00:01    time: 0.020896  data: 0.000206  mem: 347  (max mem: 404)
+I20260216 19:05:29 4154623 dinov3 helpers.py:105] Validation:   [110/164]  eta: 0:00:01    time: 0.020873  data: 0.000202  mem: 347  (max mem: 404)
+I20260216 19:05:29 4154623 dinov3 helpers.py:105] Validation:   [120/164]  eta: 0:00:01    time: 0.020680  data: 0.000197  mem: 347  (max mem: 404)
+I20260216 19:05:30 4154623 dinov3 helpers.py:105] Validation:   [130/164]  eta: 0:00:00    time: 0.020368  data: 0.000193  mem: 347  (max mem: 404)
+I20260216 19:05:30 4154623 dinov3 helpers.py:105] Validation:   [140/164]  eta: 0:00:00    time: 0.020162  data: 0.000197  mem: 347  (max mem: 404)
+I20260216 19:05:30 4154623 dinov3 helpers.py:105] Validation:   [150/164]  eta: 0:00:00    time: 0.020137  data: 0.000197  mem: 347  (max mem: 404)
+I20260216 19:05:30 4154623 dinov3 helpers.py:105] Validation:   [160/164]  eta: 0:00:00    time: 0.019889  data: 0.000192  mem: 347  (max mem: 404)
+I20260216 19:05:30 4154623 dinov3 helpers.py:105] Validation:   [163/164]  eta: 0:00:00    time: 0.019744  data: 0.000186  mem: 347  (max mem: 404)
+I20260216 19:05:30 4154623 dinov3 helpers.py:133] Validation:  Total time: 0:00:04 (0.026731 s / it)
+I20260216 19:05:31 4154623 dinov3 eval.py:210] Final scores: a1: 0.790 abs_rel: 0.163 rmse: 0.517
+I20260216 19:05:31 4154623 dinov3 run.py:68]  
+====== Summary ======
+NYU        a1: 0.790 abs_rel: 0.163 rmse: 0.517
+=====================
+I20260216 19:05:31 4154623 dinov3 helpers.py:27] Saving results to /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/results-depth.csv
+I20260216 19:06:59 4154847 dinov3 torch_distributed_wrapper.py:255] PyTorch distributed environment: TorchElastic job (none) using 127.0.0.1:29500 (rank=0, world size=4)
+I20260216 19:07:01 4154847 dinov3 config.py:209] git:
+  sha: 54694f7627fd815f62a5dcc82944ffa6153bbb76, status: has uncommited changes, branch: main
+
+I20260216 19:07:01 4154847 dinov3 config.py:213] conda env name: pt2
+I20260216 19:07:01 4154847 dinov3 config.py:214] conda env path: /fp/homes01/u01/ec-thallesss/.conda/envs/pt2
+I20260216 19:07:01 4154847 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/3008018/tmpmloed37v']
+I20260216 19:07:01 4154847 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+opts: []
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+shard_unsharded_model: False
+I20260216 19:07:01 4154847 dinov3 config.py:58] MODEL:
+  META_ARCHITECTURE: SSLMetaArch
+  DEVICE: cuda
+  WEIGHTS: ''
+  DTYPE: bfloat16
+compute_precision:
+  param_dtype: bf16
+  reduce_dtype: bf16
+  sharding_strategy: SHARD_GRAD_OP
+dino:
+  loss_weight: 1.0
+  global_ignore_diagonal: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+  koleo_loss_distributed: false
+  koleo_topk: 1
+  koleo_distributed_replicas: 0
+  koleo_distributed_loss_group_size: null
+  koleo_distributed_loss_group_data: true
+  force_weight_norm: false
+  reweight_dino_local_loss: false
+  local_loss_weight_schedule:
+    start: 0.5
+    peak: 0.5
+    end: 0.5
+    warmup_epochs: 0
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  mask_random_circular_shift: false
+  force_masking_even_with_zero_weight: false
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+gram:
+  use_loss: false
+  compute_stats: false
+  loss_weight: 1.0
+  ema_teacher: false
+  ckpt: null
+  it_load_ema_teacher: -1
+  rep_update: true
+  update_frequency: 50000
+  it_first_update: 0
+  max_updates: null
+  normalized: true
+  img_level: false
+  remove_neg: false
+  remove_only_teacher_neg: false
+  tokens_used: all
+  global_teacher_resize_method: bicubic
+  global_teacher_resize_antialias: false
+  loss_weight_schedule: null
+train:
+  batch_size_per_gpu: 128
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/:extra=/dinov3/data/extra
+  data_config: null
+  output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 6
+  OFFICIAL_EPOCH_LENGTH: 1250
+  monitor_gradient_norm: false
+  chunk_schedule: []
+  use_teacher_head: true
+  learn_from_teacher_tokens: false
+  centering: sinkhorn_knopp
+  checkpointing: false
+  checkpointing_full: false
+  compile: false
+  cudagraphs: false
+  sharded_eval_checkpoint: false
+  cache_dataset: true
+  cell_augmentation: false
+  cell_augmentation_type: hpa
+student:
+  arch: vit_base
+  patch_size: 16
+  drop_path_rate: 0.1
+  layerscale: 1.0e-05
+  pretrained_weights: ''
+  ffn_layer: mlp
+  ffn_ratio: 4.0
+  resume_from_teacher_chkpt: ''
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  norm_layer: layernorm
+  n_storage_tokens: 0
+  mask_k_bias: false
+  untie_cls_and_patch_norms: false
+  untie_global_and_local_cls_norm: false
+  in_chans: 3
+  pos_embed_type: rope
+  pos_embed_rope_base: 100.0
+  pos_embed_rope_min_period: null
+  pos_embed_rope_max_period: null
+  pos_embed_rope_normalize_coords: separate
+  pos_embed_rope_shift_coords: null
+  pos_embed_rope_jitter_coords: null
+  pos_embed_rope_rescale_coords: null
+  pos_embed_rope_dtype: bf16
+  fp8_enabled: false
+  fp8_filter: blocks
+  patch_drop: 0.0
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+  in_chans: 3
+distillation:
+  enabled: false
+  full_cfg_path: ''
+  checkpoint_path: ''
+multidistillation:
+  enabled: false
+hrft:
+  enabled: false
+  checkpoint_path: ''
+optim:
+  epochs: 400
+  optimizer: adamw
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  lr: 0.001
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  schedule_trunc_extra: 0.0
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  dino_head_wd_multiplier: 1.0
+  layerwise_decay: 0.9
+  multi_tensor_optim: true
+  dump_fsdp_weights_path: ''
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+  global_local_crop_pairs_ratios: 1.0
+  gram_teacher_crops_size: null
+  localcrops_subset_of_globalcrops: false
+  share_color_jitter: false
+  horizontal_flips: true
+  gram_teacher_no_distortions: false
+  rgb_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  rgb_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  teacher_to_student_resolution_scale: 1.0
+evaluation:
+  eval_period_iterations: 125000
+  low_freq_every: 5
+  config_files:
+    high_freq: benchmark_high_frequency.yaml
+    low_freq: benchmark_low_frequency.yaml
+checkpointing:
+  period: 3750
+  max_to_keep: 1
+  keep_every: 99999999999999999
+global_memory:
+  partition_size: 4096
+  num_tasks: 8
+  memory_size: 65536
+  head_bottleneck_dim: 256
+  target_update_size: 512
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.92
+  threshold_initial: 0.85
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.1
+  k_winners: 5
+local_memory:
+  partition_size: 512
+  num_tasks: 8
+  memory_size: 8192
+  head_bottleneck_dim: 256
+  target_update_size: 64
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.9
+  threshold_initial: 0.8
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.2
+  k_winners: 5
+
+I20260216 19:07:01 4154847 dinov3 config.py:53] sqrt scaling learning rate; old: 0.001, new: 0.0028284271247461905
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:116] using base=100.0 for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:117] using min_period=None for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:118] using max_period=None for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:119] using normalize_coords=separate for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:120] using shift_coords=None for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:121] using rescale_coords=None for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:122] using jitter_coords=None for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:123] using dtype=bf16 for rope new
+I20260216 19:07:01 4154847 dinov3 vision_transformer.py:137] using mlp layer as FFN
+I20260216 19:07:01 4154847 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
+I20260216 19:07:01 4154847 dinov3 __init__.py:122] PyTorch consolidated checkpoint
+I20260216 19:07:02 4154847 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
+I20260216 19:07:02 4154847 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+W20260216 19:07:02 4154847 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
+W20260216 19:07:02 4154847 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
+I20260216 19:07:02 4154847 dinov3 run.py:122] Depth config:
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+I20260216 19:07:02 4154847 dinov3 run.py:43] Using config: 
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+I20260216 19:07:02 4154847 dinov3 loaders.py:100] using dataset: "NYU:split=VAL:root=/fp/projects01/ec35/data/NYU"
+I20260216 19:07:02 4154847 dinov3 loaders.py:105] # of dataset samples: 654
+I20260216 19:07:02 4154847 dinov3 data.py:66] Dataset test:
+Dataset NYU
+    Number of datapoints: 654
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.FULL)
+      ToRGBDTensorPair()
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+      NormalizeDepth(normalization_factor=1000.0)
+      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x152c14326990>
+)
+I20260216 19:07:02 4154847 dinov3 loaders.py:164] sampler: distributed
+I20260216 19:07:02 4154847 dinov3 loaders.py:225] using PyTorch data loader
+I20260216 19:07:02 4154847 dinov3 loaders.py:239] # of batches: 164
+I20260216 19:07:03 4154847 dinov3 helpers.py:105] Validation:   [  0/164]  eta: 0:03:22    time: 1.232949  data: 0.170003  mem: 346  (max mem: 402)
+I20260216 19:07:04 4154847 dinov3 helpers.py:105] Validation:   [ 10/164]  eta: 0:00:20    time: 0.131793  data: 0.015665  mem: 346  (max mem: 403)
+I20260216 19:07:04 4154847 dinov3 helpers.py:105] Validation:   [ 20/164]  eta: 0:00:11    time: 0.020658  data: 0.000214  mem: 346  (max mem: 403)
+I20260216 19:07:04 4154847 dinov3 helpers.py:105] Validation:   [ 30/164]  eta: 0:00:08    time: 0.021071  data: 0.001635  mem: 346  (max mem: 403)
+I20260216 19:07:04 4154847 dinov3 helpers.py:105] Validation:   [ 40/164]  eta: 0:00:06    time: 0.021246  data: 0.001630  mem: 346  (max mem: 403)
+I20260216 19:07:04 4154847 dinov3 helpers.py:105] Validation:   [ 50/164]  eta: 0:00:05    time: 0.020499  data: 0.000693  mem: 347  (max mem: 403)
+I20260216 19:07:05 4154847 dinov3 helpers.py:105] Validation:   [ 60/164]  eta: 0:00:04    time: 0.020590  data: 0.000820  mem: 347  (max mem: 403)
+I20260216 19:07:05 4154847 dinov3 helpers.py:105] Validation:   [ 70/164]  eta: 0:00:03    time: 0.019898  data: 0.000317  mem: 347  (max mem: 403)
+I20260216 19:07:05 4154847 dinov3 helpers.py:105] Validation:   [ 80/164]  eta: 0:00:02    time: 0.019870  data: 0.000191  mem: 347  (max mem: 403)
+I20260216 19:07:05 4154847 dinov3 helpers.py:105] Validation:   [ 90/164]  eta: 0:00:02    time: 0.020055  data: 0.000187  mem: 347  (max mem: 403)
+I20260216 19:07:05 4154847 dinov3 helpers.py:105] Validation:   [100/164]  eta: 0:00:02    time: 0.019914  data: 0.000205  mem: 347  (max mem: 404)
+I20260216 19:07:06 4154847 dinov3 helpers.py:105] Validation:   [110/164]  eta: 0:00:01    time: 0.019723  data: 0.000201  mem: 347  (max mem: 404)
+I20260216 19:07:06 4154847 dinov3 helpers.py:105] Validation:   [120/164]  eta: 0:00:01    time: 0.020092  data: 0.000705  mem: 347  (max mem: 404)
+I20260216 19:07:06 4154847 dinov3 helpers.py:105] Validation:   [130/164]  eta: 0:00:01    time: 0.020017  data: 0.000714  mem: 347  (max mem: 404)
+I20260216 19:07:06 4154847 dinov3 helpers.py:105] Validation:   [140/164]  eta: 0:00:00    time: 0.019717  data: 0.000200  mem: 347  (max mem: 404)
+I20260216 19:07:06 4154847 dinov3 helpers.py:105] Validation:   [150/164]  eta: 0:00:00    time: 0.019827  data: 0.000201  mem: 347  (max mem: 404)
+I20260216 19:07:07 4154847 dinov3 helpers.py:105] Validation:   [160/164]  eta: 0:00:00    time: 0.019582  data: 0.000192  mem: 347  (max mem: 404)
+I20260216 19:07:07 4154847 dinov3 helpers.py:105] Validation:   [163/164]  eta: 0:00:00    time: 0.020450  data: 0.001045  mem: 347  (max mem: 404)
+I20260216 19:07:07 4154847 dinov3 helpers.py:133] Validation:  Total time: 0:00:04 (0.027901 s / it)
+I20260216 19:07:07 4154847 dinov3 eval.py:210] Final scores: a1: 0.790 abs_rel: 0.163 rmse: 0.517
+I20260216 19:07:07 4154847 dinov3 run.py:68]  
+====== Summary ======
+NYU        a1: 0.790 abs_rel: 0.163 rmse: 0.517
+=====================
+I20260216 19:07:07 4154847 dinov3 helpers.py:27] Saving results to /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/results-depth.csv
+I20260216 19:07:51 4154994 dinov3 torch_distributed_wrapper.py:255] PyTorch distributed environment: TorchElastic job (none) using 127.0.0.1:29500 (rank=0, world size=4)
+I20260216 19:07:52 4154994 dinov3 config.py:209] git:
+  sha: 54694f7627fd815f62a5dcc82944ffa6153bbb76, status: has uncommited changes, branch: main
+
+I20260216 19:07:52 4154994 dinov3 config.py:213] conda env name: pt2
+I20260216 19:07:52 4154994 dinov3 config.py:214] conda env path: /fp/homes01/u01/ec-thallesss/.conda/envs/pt2
+I20260216 19:07:52 4154994 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python312.zip', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/lib-dynload', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages', '/fp/homes01/u01/ec-thallesss/.conda/envs/pt2/lib/python3.12/site-packages/setuptools/_vendor', '/localscratch/3008018/tmp_kiit452']
+I20260216 19:07:52 4154994 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+opts: []
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+shard_unsharded_model: False
+I20260216 19:07:52 4154994 dinov3 config.py:58] MODEL:
+  META_ARCHITECTURE: SSLMetaArch
+  DEVICE: cuda
+  WEIGHTS: ''
+  DTYPE: bfloat16
+compute_precision:
+  param_dtype: bf16
+  reduce_dtype: bf16
+  sharding_strategy: SHARD_GRAD_OP
+dino:
+  loss_weight: 1.0
+  global_ignore_diagonal: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+  koleo_loss_distributed: false
+  koleo_topk: 1
+  koleo_distributed_replicas: 0
+  koleo_distributed_loss_group_size: null
+  koleo_distributed_loss_group_data: true
+  force_weight_norm: false
+  reweight_dino_local_loss: false
+  local_loss_weight_schedule:
+    start: 0.5
+    peak: 0.5
+    end: 0.5
+    warmup_epochs: 0
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  mask_random_circular_shift: false
+  force_masking_even_with_zero_weight: false
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+gram:
+  use_loss: false
+  compute_stats: false
+  loss_weight: 1.0
+  ema_teacher: false
+  ckpt: null
+  it_load_ema_teacher: -1
+  rep_update: true
+  update_frequency: 50000
+  it_first_update: 0
+  max_updates: null
+  normalized: true
+  img_level: false
+  remove_neg: false
+  remove_only_teacher_neg: false
+  tokens_used: all
+  global_teacher_resize_method: bicubic
+  global_teacher_resize_antialias: false
+  loss_weight_schedule: null
+train:
+  batch_size_per_gpu: 128
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/:extra=/dinov3/data/extra
+  data_config: null
+  output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 6
+  OFFICIAL_EPOCH_LENGTH: 1250
+  monitor_gradient_norm: false
+  chunk_schedule: []
+  use_teacher_head: true
+  learn_from_teacher_tokens: false
+  centering: sinkhorn_knopp
+  checkpointing: false
+  checkpointing_full: false
+  compile: false
+  cudagraphs: false
+  sharded_eval_checkpoint: false
+  cache_dataset: true
+  cell_augmentation: false
+  cell_augmentation_type: hpa
+student:
+  arch: vit_base
+  patch_size: 16
+  drop_path_rate: 0.1
+  layerscale: 1.0e-05
+  pretrained_weights: ''
+  ffn_layer: mlp
+  ffn_ratio: 4.0
+  resume_from_teacher_chkpt: ''
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  norm_layer: layernorm
+  n_storage_tokens: 0
+  mask_k_bias: false
+  untie_cls_and_patch_norms: false
+  untie_global_and_local_cls_norm: false
+  in_chans: 3
+  pos_embed_type: rope
+  pos_embed_rope_base: 100.0
+  pos_embed_rope_min_period: null
+  pos_embed_rope_max_period: null
+  pos_embed_rope_normalize_coords: separate
+  pos_embed_rope_shift_coords: null
+  pos_embed_rope_jitter_coords: null
+  pos_embed_rope_rescale_coords: null
+  pos_embed_rope_dtype: bf16
+  fp8_enabled: false
+  fp8_filter: blocks
+  patch_drop: 0.0
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+  in_chans: 3
+distillation:
+  enabled: false
+  full_cfg_path: ''
+  checkpoint_path: ''
+multidistillation:
+  enabled: false
+hrft:
+  enabled: false
+  checkpoint_path: ''
+optim:
+  epochs: 400
+  optimizer: adamw
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  lr: 0.001
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  schedule_trunc_extra: 0.0
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  dino_head_wd_multiplier: 1.0
+  layerwise_decay: 0.9
+  multi_tensor_optim: true
+  dump_fsdp_weights_path: ''
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+  global_local_crop_pairs_ratios: 1.0
+  gram_teacher_crops_size: null
+  localcrops_subset_of_globalcrops: false
+  share_color_jitter: false
+  horizontal_flips: true
+  gram_teacher_no_distortions: false
+  rgb_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  rgb_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  teacher_to_student_resolution_scale: 1.0
+evaluation:
+  eval_period_iterations: 125000
+  low_freq_every: 5
+  config_files:
+    high_freq: benchmark_high_frequency.yaml
+    low_freq: benchmark_low_frequency.yaml
+checkpointing:
+  period: 3750
+  max_to_keep: 1
+  keep_every: 99999999999999999
+global_memory:
+  partition_size: 4096
+  num_tasks: 8
+  memory_size: 65536
+  head_bottleneck_dim: 256
+  target_update_size: 512
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.92
+  threshold_initial: 0.85
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.1
+  k_winners: 5
+local_memory:
+  partition_size: 512
+  num_tasks: 8
+  memory_size: 8192
+  head_bottleneck_dim: 256
+  target_update_size: 64
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.9
+  threshold_initial: 0.8
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.2
+  k_winners: 5
+
+I20260216 19:07:52 4154994 dinov3 config.py:53] sqrt scaling learning rate; old: 0.001, new: 0.0028284271247461905
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:116] using base=100.0 for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:117] using min_period=None for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:118] using max_period=None for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:119] using normalize_coords=separate for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:120] using shift_coords=None for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:121] using rescale_coords=None for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:122] using jitter_coords=None for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:123] using dtype=bf16 for rope new
+I20260216 19:07:52 4154994 dinov3 vision_transformer.py:137] using mlp layer as FFN
+I20260216 19:07:52 4154994 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
+I20260216 19:07:52 4154994 dinov3 __init__.py:122] PyTorch consolidated checkpoint
+I20260216 19:07:53 4154994 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
+I20260216 19:07:53 4154994 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+W20260216 19:07:53 4154994 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
+W20260216 19:07:53 4154994 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
+I20260216 19:07:53 4154994 dinov3 run.py:122] Depth config:
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+I20260216 19:07:53 4154994 dinov3 run.py:43] Using config: 
+ model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/model_00038400.pth
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu
+
+I20260216 19:07:53 4154994 dinov3 loaders.py:100] using dataset: "NYU:split=VAL:root=/fp/projects01/ec35/data/NYU"
+I20260216 19:07:53 4154994 dinov3 loaders.py:105] # of dataset samples: 654
+I20260216 19:07:53 4154994 dinov3 data.py:66] Dataset test:
+Dataset NYU
+    Number of datapoints: 654
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.FULL)
+      ToRGBDTensorPair()
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+      NormalizeDepth(normalization_factor=1000.0)
+      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x147dea297080>
+)
+I20260216 19:07:53 4154994 dinov3 loaders.py:164] sampler: distributed
+I20260216 19:07:53 4154994 dinov3 loaders.py:225] using PyTorch data loader
+I20260216 19:07:53 4154994 dinov3 loaders.py:239] # of batches: 164
+I20260216 19:07:54 4154994 dinov3 helpers.py:105] Validation:   [  0/164]  eta: 0:02:58    time: 1.085808  data: 0.161457  mem: 346  (max mem: 402)
+I20260216 19:07:54 4154994 dinov3 helpers.py:105] Validation:   [ 10/164]  eta: 0:00:18    time: 0.118139  data: 0.014827  mem: 346  (max mem: 403)
+I20260216 19:07:54 4154994 dinov3 helpers.py:105] Validation:   [ 20/164]  eta: 0:00:10    time: 0.020293  data: 0.000168  mem: 346  (max mem: 403)
+I20260216 19:07:55 4154994 dinov3 helpers.py:105] Validation:   [ 30/164]  eta: 0:00:07    time: 0.019309  data: 0.000160  mem: 346  (max mem: 403)
+I20260216 19:07:55 4154994 dinov3 helpers.py:105] Validation:   [ 40/164]  eta: 0:00:05    time: 0.019075  data: 0.000166  mem: 346  (max mem: 403)
+I20260216 19:07:55 4154994 dinov3 helpers.py:105] Validation:   [ 50/164]  eta: 0:00:04    time: 0.018817  data: 0.000176  mem: 347  (max mem: 403)
+I20260216 19:07:55 4154994 dinov3 helpers.py:105] Validation:   [ 60/164]  eta: 0:00:03    time: 0.018836  data: 0.000165  mem: 347  (max mem: 403)
+I20260216 19:07:55 4154994 dinov3 helpers.py:105] Validation:   [ 70/164]  eta: 0:00:03    time: 0.019102  data: 0.000167  mem: 347  (max mem: 403)
+I20260216 19:07:55 4154994 dinov3 helpers.py:105] Validation:   [ 80/164]  eta: 0:00:02    time: 0.019156  data: 0.000165  mem: 347  (max mem: 403)
+I20260216 19:07:56 4154994 dinov3 helpers.py:105] Validation:   [ 90/164]  eta: 0:00:02    time: 0.018842  data: 0.000147  mem: 347  (max mem: 403)
+I20260216 19:07:56 4154994 dinov3 helpers.py:105] Validation:   [100/164]  eta: 0:00:01    time: 0.018926  data: 0.000141  mem: 347  (max mem: 404)
+I20260216 19:07:56 4154994 dinov3 helpers.py:105] Validation:   [110/164]  eta: 0:00:01    time: 0.019112  data: 0.000151  mem: 347  (max mem: 404)
+I20260216 19:07:56 4154994 dinov3 helpers.py:105] Validation:   [120/164]  eta: 0:00:01    time: 0.018900  data: 0.000160  mem: 347  (max mem: 404)
+I20260216 19:07:56 4154994 dinov3 helpers.py:105] Validation:   [130/164]  eta: 0:00:00    time: 0.018719  data: 0.000152  mem: 347  (max mem: 404)
+I20260216 19:07:57 4154994 dinov3 helpers.py:105] Validation:   [140/164]  eta: 0:00:00    time: 0.018740  data: 0.000162  mem: 347  (max mem: 404)
+I20260216 19:07:57 4154994 dinov3 helpers.py:105] Validation:   [150/164]  eta: 0:00:00    time: 0.018730  data: 0.000181  mem: 347  (max mem: 404)
+I20260216 19:07:57 4154994 dinov3 helpers.py:105] Validation:   [160/164]  eta: 0:00:00    time: 0.018823  data: 0.000166  mem: 347  (max mem: 404)
+I20260216 19:07:57 4154994 dinov3 helpers.py:105] Validation:   [163/164]  eta: 0:00:00    time: 0.018772  data: 0.000153  mem: 347  (max mem: 404)
+I20260216 19:07:57 4154994 dinov3 helpers.py:133] Validation:  Total time: 0:00:04 (0.025678 s / it)
+I20260216 19:07:58 4154994 dinov3 eval.py:210] Final scores: a1: 0.790 abs_rel: 0.163 rmse: 0.517
+I20260216 19:07:58 4154994 dinov3 run.py:68]  
+====== Summary ======
+NYU        a1: 0.790 abs_rel: 0.163 rmse: 0.517
+=====================
+I20260216 19:07:58 4154994 dinov3 helpers.py:27] Saving results to /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/vitb_400ep/eval/training_499999/depth_training_nyu/results-depth.csv

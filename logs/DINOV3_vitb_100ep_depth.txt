@@ -1,0 +1,465 @@
+I20260306 15:43:27 678357 dinov3 torch_distributed_wrapper.py:255] PyTorch distributed environment: TorchElastic job (none) using 127.0.0.1:29500 (rank=0, world size=4)
+[Gloo] Rank [Gloo] Rank 0[Gloo] Rank [Gloo] Rank 3 is connected to 12 is connected to 3 is connected to  is connected to 3 peer ranks. 33 peer ranks. Expected number of connected peer ranks is :  peer ranks.  peer ranks. Expected number of connected peer ranks is : 3Expected number of connected peer ranks is : Expected number of connected peer ranks is : 3
+33
+
+
+I20260306 15:43:28 678357 dinov3 config.py:209] git:
+  sha: 54694f7627fd815f62a5dcc82944ffa6153bbb76, status: has uncommited changes, branch: main
+
+I20260306 15:43:28 678357 dinov3 config.py:213] conda env name: pt28
+I20260306 15:43:28 678357 dinov3 config.py:214] conda env path: /fp/projects01/ec35/homes/ec-thallesss/miniconda3/envs/pt28
+I20260306 15:43:28 678357 dinov3 config.py:215] python path: ['/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/eval/depth', '/fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3', '/fp/projects01/ec35/homes/ec-thallesss/miniconda3/envs/pt28/lib/python310.zip', '/fp/projects01/ec35/homes/ec-thallesss/miniconda3/envs/pt28/lib/python3.10', '/fp/projects01/ec35/homes/ec-thallesss/miniconda3/envs/pt28/lib/python3.10/lib-dynload', '/fp/projects01/ec35/homes/ec-thallesss/miniconda3/envs/pt28/lib/python3.10/site-packages', '/localscratch/3084851/tmp6v9uxha5']
+I20260306 15:43:28 678357 dinov3 config.py:100] config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/config.yaml
+opts: []
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/eval/training_124999/depth_training_nyu
+pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/eval/training_124999/teacher_checkpoint.pth
+shard_unsharded_model: False
+I20260306 15:43:28 678357 dinov3 config.py:58] MODEL:
+  META_ARCHITECTURE: SSLMetaArch
+  DEVICE: cuda
+  WEIGHTS: ''
+  DTYPE: bfloat16
+compute_precision:
+  param_dtype: bf16
+  reduce_dtype: bf16
+  sharding_strategy: SHARD_GRAD_OP
+dino:
+  loss_weight: 1.0
+  global_ignore_diagonal: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+  koleo_loss_distributed: false
+  koleo_topk: 1
+  koleo_distributed_replicas: 0
+  koleo_distributed_loss_group_size: null
+  koleo_distributed_loss_group_data: true
+  force_weight_norm: false
+  reweight_dino_local_loss: false
+  local_loss_weight_schedule:
+    start: 0.5
+    peak: 0.5
+    end: 0.5
+    warmup_epochs: 0
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  mask_random_circular_shift: false
+  force_masking_even_with_zero_weight: false
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_norm_last_layer: false
+  head_nlayers: 3
+  head_hidden_dim: 2048
+gram:
+  use_loss: false
+  compute_stats: false
+  loss_weight: 1.0
+  ema_teacher: false
+  ckpt: null
+  it_load_ema_teacher: -1
+  rep_update: true
+  update_frequency: 50000
+  it_first_update: 0
+  max_updates: null
+  normalized: true
+  img_level: false
+  remove_neg: false
+  remove_only_teacher_neg: false
+  tokens_used: all
+  global_teacher_resize_method: bicubic
+  global_teacher_resize_antialias: false
+  loss_weight_schedule: null
+train:
+  batch_size_per_gpu: 32
+  dataset_path: ImageNetQuix:split=TRAIN:root=/dataset/data/:extra=/dinov3/dinov3/data/extra
+  data_config: null
+  output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/eval/training_124999/depth_training_nyu
+  saveckp_freq: 20
+  seed: 0
+  num_workers: 6
+  OFFICIAL_EPOCH_LENGTH: 1250
+  monitor_gradient_norm: false
+  chunk_schedule: []
+  use_teacher_head: true
+  learn_from_teacher_tokens: false
+  centering: sinkhorn_knopp
+  checkpointing: false
+  checkpointing_full: false
+  compile: false
+  cudagraphs: false
+  sharded_eval_checkpoint: false
+  cache_dataset: true
+  cell_augmentation: false
+  cell_augmentation_type: hpa
+student:
+  arch: vit_base
+  patch_size: 16
+  drop_path_rate: 0.1
+  layerscale: 1.0e-05
+  pretrained_weights: ''
+  ffn_layer: mlp
+  ffn_ratio: 4.0
+  resume_from_teacher_chkpt: ''
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  norm_layer: layernorm
+  n_storage_tokens: 0
+  mask_k_bias: false
+  untie_cls_and_patch_norms: false
+  untie_global_and_local_cls_norm: false
+  in_chans: 3
+  pos_embed_type: rope
+  pos_embed_rope_base: 100.0
+  pos_embed_rope_min_period: null
+  pos_embed_rope_max_period: null
+  pos_embed_rope_normalize_coords: separate
+  pos_embed_rope_shift_coords: null
+  pos_embed_rope_jitter_coords: null
+  pos_embed_rope_rescale_coords: null
+  pos_embed_rope_dtype: bf16
+  fp8_enabled: false
+  fp8_filter: blocks
+  patch_drop: 0.0
+teacher:
+  momentum_teacher: 0.992
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+  in_chans: 3
+distillation:
+  enabled: false
+  full_cfg_path: ''
+  checkpoint_path: ''
+multidistillation:
+  enabled: false
+hrft:
+  enabled: false
+  checkpoint_path: ''
+optim:
+  epochs: 100
+  optimizer: adamw
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  lr: 0.001
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  schedule_trunc_extra: 0.0
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  dino_head_wd_multiplier: 1.0
+  layerwise_decay: 0.9
+  multi_tensor_optim: true
+  dump_fsdp_weights_path: ''
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 96
+  global_local_crop_pairs_ratios: 1.0
+  gram_teacher_crops_size: null
+  localcrops_subset_of_globalcrops: false
+  share_color_jitter: false
+  horizontal_flips: true
+  gram_teacher_no_distortions: false
+  rgb_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  rgb_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  teacher_to_student_resolution_scale: 1.0
+evaluation:
+  eval_period_iterations: 31250
+  low_freq_every: 5
+  config_files:
+    high_freq: benchmark_high_frequency.yaml
+    low_freq: benchmark_low_frequency.yaml
+checkpointing:
+  period: 3750
+  max_to_keep: 1
+  keep_every: 99999999999999999
+global_memory:
+  partition_size: 2048
+  num_tasks: 8
+  memory_size: 32768
+  head_bottleneck_dim: 256
+  target_update_size: 256
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.92
+  threshold_initial: 0.85
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.1
+  k_winners: 5
+local_memory:
+  partition_size: 512
+  num_tasks: 8
+  memory_size: 8192
+  head_bottleneck_dim: 256
+  target_update_size: 64
+  priority_ratio: 0.0
+  refinement_ratio: 0.15
+  usage_decay: 1
+  refinement_momentum: 0.9
+  threshold_initial: 0.8
+  refinement_update: true
+  dedup_threshold: 0.95
+  grace_period_ratio: 0.2
+  k_winners: 5
+
+I20260306 15:43:28 678357 dinov3 config.py:53] sqrt scaling learning rate; old: 0.001, new: 0.0014142135623730952
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:116] using base=100.0 for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:117] using min_period=None for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:118] using max_period=None for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:119] using normalize_coords=separate for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:120] using shift_coords=None for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:121] using rescale_coords=None for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:122] using jitter_coords=None for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:123] using dtype=bf16 for rope new
+I20260306 15:43:28 678357 dinov3 vision_transformer.py:137] using mlp layer as FFN
+I20260306 15:43:28 678357 dinov3 __init__.py:24] fp8 matmuls: OFF (disabled in config)
+I20260306 15:43:28 678357 dinov3 __init__.py:122] PyTorch consolidated checkpoint
+I20260306 15:43:30 678357 dinov3 checkpointer.py:313] Take key teacher in provided checkpoint dict
+I20260306 15:43:30 678357 dinov3 checkpointer.py:320] Pretrained weights found at /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/eval/training_124999/teacher_checkpoint.pth and loaded with msg: _IncompatibleKeys(missing_keys=[], unexpected_keys=['dino_head.mlp.0.weight', 'dino_head.mlp.0.bias', 'dino_head.mlp.2.weight', 'dino_head.mlp.2.bias', 'dino_head.mlp.4.weight', 'dino_head.mlp.4.bias', 'dino_head.last_layer.weight', 'ibot_head.mlp.0.weight', 'ibot_head.mlp.0.bias', 'ibot_head.mlp.2.weight', 'ibot_head.mlp.2.bias', 'ibot_head.mlp.4.weight', 'ibot_head.mlp.4.bias', 'ibot_head.last_layer.weight'])
+I20260306 15:43:30 678357 dinov3 train.py:290] Config:
+model:
+  config_file: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/config.yaml
+  pretrained_weights: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/eval/training_124999/teacher_checkpoint.pth
+  dino_hub: null
+bs: 2
+n_gpus: 8
+num_workers: 2
+seed: 321
+scheduler:
+  type: WarmupOneCycleLR
+  total_iter: 38400
+  constructor_kwargs:
+    final_div_factor: 1000.0
+    warmup_iters: 12800
+    base_momentum: 0.85
+    max_momentum: 0.95
+optimizer:
+  lr: 0.0003
+  beta1: 0.9
+  beta2: 0.99
+  weight_decay: 0.0001
+  gradient_clip: 35.0
+datasets:
+  root: /fp/projects01/ec35/data/NYU
+  train: NYU:split=TRAIN
+  val: NYU:split=VAL
+  test: NYU:split=VAL
+decoder_head:
+  min_depth: 0.001
+  max_depth: 10.0
+  bins_strategy: linear
+  norm_strategy: linear
+  head_kwargs: {}
+  backbone_out_layers: LAST
+  adapt_to_patch_size: CENTER_PADDING
+  use_backbone_norm: true
+  type: linear
+  n_output_channels: 256
+  use_batchnorm: true
+  use_cls_token: false
+model_dtype: null
+losses:
+  SIGLOSS: 1.0
+transforms:
+  train:
+    img_size: null
+    random_crop:
+    - 416
+    - 544
+    brightness_range:
+    - 0.75
+    - 1.25
+    rotation_angle: 2.5
+    fixed_crop: NYU
+    eval_mask: FULL
+  eval:
+    img_size: null
+    fixed_crop: FULL
+    eval_mask: NYU_EIGEN
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  normalization_constant: 1000.0
+eval:
+  ignored_value: 0.0
+  align_least_squares: false
+  min_depth: 0.001
+  max_depth: 10.0
+  use_tta: true
+  eval_interval: 1600
+metrics:
+- rmse
+- abs_rel
+- a1
+result_config:
+  save_results: false
+  extension: JPG
+  save_resolution: null
+  overlay_alpha: 1.0
+  save_separate_files: false
+load_from: null
+output_dir: /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM/experiments/CAM_vitb_32768gm_100ep/eval/training_124999/depth_training_nyu
+
+W20260306 15:43:30 678357 dinov3 encoder.py:85] Backbone does not define embed_dims, using [768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768] instead
+W20260306 15:43:30 678357 dinov3 encoder.py:94] Backbone does not define input_pad_size, using patch_size=16 instead
+I20260306 15:43:30 678357 dinov3 utils.py:76] Model moved to rank 0
+I20260306 15:43:30 678357 dinov3 loaders.py:100] using dataset: "NYU:split=TRAIN:root=/fp/projects01/ec35/data/NYU"
+I20260306 15:43:30 678357 dinov3 loaders.py:105] # of dataset samples: 24,231
+I20260306 15:43:30 678357 dinov3 data.py:66] Dataset train:
+Dataset NYU
+    Number of datapoints: 24231
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.NYU)
+      ToRGBDTensorPair()
+      NormalizeDepth(normalization_factor=1000.0)
+      MaybeApply(
+    (_transform): Compose(    RandomRotation(degrees=[-2.5, 2.5], interpolation=InterpolationMode.BILINEAR, expand=False, fill=0))
+  )
+      RandomHorizontalFlip(p=0.5)
+      RandomCrop(size=[416, 544], pad_if_needed=False, fill=0, padding_mode=constant)
+      ColorAug(
+  	gamma_range=(0.9, 1.1),
+  	brightness_range=[0.75, 1.25],
+  	color_range=(0.9, 1.1),
+  	prob=0.5,)
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+)
+I20260306 15:43:30 678357 dinov3 loaders.py:164] sampler: distributed
+I20260306 15:43:30 678357 dinov3 loaders.py:225] using PyTorch data loader
+I20260306 15:43:30 678357 dinov3 loaders.py:239] # of batches: 3,029
+I20260306 15:43:31 678357 dinov3 loaders.py:100] using dataset: "NYU:split=VAL:root=/fp/projects01/ec35/data/NYU"
+I20260306 15:43:31 678357 dinov3 loaders.py:105] # of dataset samples: 654
+I20260306 15:43:31 678357 dinov3 data.py:66] Dataset val:
+Dataset NYU
+    Number of datapoints: 654
+    Root location: /fp/projects01/ec35/data/NYU
+    Compose(
+      FixedCrop(_FixedCropType.FULL)
+      ToRGBDTensorPair()
+      Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=False)
+      NormalizeDepth(normalization_factor=1000.0)
+      <dinov3.eval.depth.transforms.LeftRightFlipAug object at 0x146a02d96e00>
+)
+I20260306 15:43:31 678357 dinov3 loaders.py:164] sampler: distributed
+I20260306 15:43:31 678357 dinov3 loaders.py:225] using PyTorch data loader
+I20260306 15:43:31 678357 dinov3 loaders.py:239] # of batches: 164
+I20260306 15:43:31 678357 dinov3 checkpoint_utils.py:50] Could not find checkpoint to resume from, starting from scratch
+I20260306 15:43:31 678357 dinov3 train.py:238] Built trainer with start: 0 | total_iter 38400
+I20260306 15:43:32 678357 dinov3 helpers.py:105] Train:   [    0/38400]  eta: 15:39:01  loss: 0.493  time: 1.467239  data: 0.141675  mem: 347  (max mem: 386)
+I20260306 15:43:34 678357 dinov3 helpers.py:105] Train:   [   50/38400]  eta: 0:48:57  loss: 0.300  time: 0.048041  data: 0.000108  mem: 347  (max mem: 395)
+I20260306 15:43:37 678357 dinov3 helpers.py:105] Train:   [  100/38400]  eta: 0:39:49  loss: 0.402  time: 0.047855  data: 0.000144  mem: 347  (max mem: 395)
+I20260306 15:43:39 678357 dinov3 helpers.py:105] Train:   [  150/38400]  eta: 0:36:47  loss: 0.553  time: 0.048456  data: 0.000161  mem: 347  (max mem: 395)
+I20260306 15:43:42 678357 dinov3 helpers.py:105] Train:   [  200/38400]  eta: 0:35:02  loss: 0.363  time: 0.047053  data: 0.000106  mem: 347  (max mem: 395)
+I20260306 15:43:44 678357 dinov3 helpers.py:105] Train:   [  250/38400]  eta: 0:34:04  loss: 0.656  time: 0.047430  data: 0.000121  mem: 347  (max mem: 395)
+I20260306 15:43:46 678357 dinov3 helpers.py:105] Train:   [  300/38400]  eta: 0:33:22  loss: 0.467  time: 0.047295  data: 0.000113  mem: 347  (max mem: 395)
+I20260306 15:43:49 678357 dinov3 helpers.py:105] Train:   [  350/38400]  eta: 0:32:53  loss: 0.548  time: 0.047244  data: 0.000116  mem: 347  (max mem: 395)
+I20260306 15:43:51 678357 dinov3 helpers.py:105] Train:   [  400/38400]  eta: 0:32:33  loss: 0.746  time: 0.048666  data: 0.000116  mem: 347  (max mem: 395)
+I20260306 15:43:54 678357 dinov3 helpers.py:105] Train:   [  450/38400]  eta: 0:32:17  loss: 0.379  time: 0.048077  data: 0.000113  mem: 347  (max mem: 395)
+I20260306 15:43:56 678357 dinov3 helpers.py:105] Train:   [  500/38400]  eta: 0:32:04  loss: 0.484  time: 0.047814  data: 0.000105  mem: 347  (max mem: 395)
+I20260306 15:43:58 678357 dinov3 helpers.py:105] Train:   [  550/38400]  eta: 0:31:50  loss: 0.459  time: 0.047405  data: 0.000092  mem: 347  (max mem: 395)
+I20260306 15:44:01 678357 dinov3 helpers.py:105] Train:   [  600/38400]  eta: 0:31:41  loss: 0.547  time: 0.047723  data: 0.000128  mem: 347  (max mem: 395)
+I20260306 15:44:03 678357 dinov3 helpers.py:105] Train:   [  650/38400]  eta: 0:31:32  loss: 0.390  time: 0.047365  data: 0.000098  mem: 347  (max mem: 395)
+I20260306 15:44:06 678357 dinov3 helpers.py:105] Train:   [  700/38400]  eta: 0:31:21  loss: 0.481  time: 0.047857  data: 0.000114  mem: 347  (max mem: 395)
+I20260306 15:44:08 678357 dinov3 helpers.py:105] Train:   [  750/38400]  eta: 0:31:14  loss: 0.353  time: 0.048192  data: 0.000108  mem: 347  (max mem: 395)
+I20260306 15:44:10 678357 dinov3 helpers.py:105] Train:   [  800/38400]  eta: 0:31:06  loss: 0.309  time: 0.047514  data: 0.000118  mem: 347  (max mem: 395)
+I20260306 15:44:13 678357 dinov3 helpers.py:105] Train:   [  850/38400]  eta: 0:31:00  loss: 0.416  time: 0.048449  data: 0.000152  mem: 347  (max mem: 395)
+I20260306 15:44:15 678357 dinov3 helpers.py:105] Train:   [  900/38400]  eta: 0:30:55  loss: 0.207  time: 0.048025  data: 0.000117  mem: 347  (max mem: 395)
+I20260306 15:44:18 678357 dinov3 helpers.py:105] Train:   [  950/38400]  eta: 0:30:48  loss: 0.462  time: 0.047400  data: 0.000096  mem: 347  (max mem: 395)
+I20260306 15:44:20 678357 dinov3 helpers.py:105] Train:   [ 1000/38400]  eta: 0:30:42  loss: 0.208  time: 0.047785  data: 0.000102  mem: 347  (max mem: 395)
+I20260306 15:44:22 678357 dinov3 helpers.py:105] Train:   [ 1050/38400]  eta: 0:30:36  loss: 0.261  time: 0.047491  data: 0.000099  mem: 347  (max mem: 395)
+I20260306 15:44:25 678357 dinov3 helpers.py:105] Train:   [ 1100/38400]  eta: 0:30:31  loss: 0.240  time: 0.047468  data: 0.000100  mem: 347  (max mem: 395)
+I20260306 15:44:27 678357 dinov3 helpers.py:105] Train:   [ 1150/38400]  eta: 0:30:26  loss: 0.278  time: 0.048262  data: 0.000097  mem: 347  (max mem: 395)
+I20260306 15:44:29 678357 dinov3 helpers.py:105] Train:   [ 1200/38400]  eta: 0:30:22  loss: 0.406  time: 0.047783  data: 0.000105  mem: 347  (max mem: 395)
+I20260306 15:44:32 678357 dinov3 helpers.py:105] Train:   [ 1250/38400]  eta: 0:30:18  loss: 0.294  time: 0.048008  data: 0.000120  mem: 347  (max mem: 395)
+I20260306 15:44:34 678357 dinov3 helpers.py:105] Train:   [ 1300/38400]  eta: 0:30:14  loss: 0.204  time: 0.048171  data: 0.000106  mem: 347  (max mem: 395)
+I20260306 15:44:37 678357 dinov3 helpers.py:105] Train:   [ 1350/38400]  eta: 0:30:11  loss: 0.209  time: 0.048162  data: 0.000112  mem: 347  (max mem: 395)
+I20260306 15:44:39 678357 dinov3 helpers.py:105] Train:   [ 1400/38400]  eta: 0:30:08  loss: 0.215  time: 0.048420  data: 0.000107  mem: 347  (max mem: 395)
+I20260306 15:44:41 678357 dinov3 helpers.py:105] Train:   [ 1450/38400]  eta: 0:30:05  loss: 0.266  time: 0.048318  data: 0.000105  mem: 347  (max mem: 395)
+I20260306 15:44:44 678357 dinov3 helpers.py:105] Train:   [ 1500/38400]  eta: 0:30:02  loss: 0.334  time: 0.048087  data: 0.000107  mem: 347  (max mem: 395)
+I20260306 15:44:46 678357 dinov3 helpers.py:105] Train:   [ 1550/38400]  eta: 0:29:58  loss: 0.235  time: 0.048158  data: 0.000148  mem: 347  (max mem: 395)
+I20260306 15:44:49 678357 dinov3 helpers.py:105] Validation:   [  0/164]  eta: 0:01:14    time: 0.454496  data: 0.260483  mem: 353  (max mem: 395)
+I20260306 15:44:49 678357 dinov3 helpers.py:105] Validation:   [ 10/164]  eta: 0:00:08    time: 0.057625  data: 0.023913  mem: 353  (max mem: 395)
+I20260306 15:44:49 678357 dinov3 helpers.py:105] Validation:   [ 20/164]  eta: 0:00:05    time: 0.017801  data: 0.000213  mem: 353  (max mem: 395)
+I20260306 15:44:50 678357 dinov3 helpers.py:105] Validation:   [ 30/164]  eta: 0:00:04    time: 0.017638  data: 0.000186  mem: 353  (max mem: 395)
+I20260306 15:44:50 678357 dinov3 helpers.py:105] Validation:   [ 40/164]  eta: 0:00:03    time: 0.017693  data: 0.000202  mem: 353  (max mem: 395)
+I20260306 15:44:50 678357 dinov3 helpers.py:105] Validation:   [ 50/164]  eta: 0:00:02    time: 0.017672  data: 0.000207  mem: 353  (max mem: 395)
+I20260306 15:44:50 678357 dinov3 helpers.py:105] Validation:   [ 60/164]  eta: 0:00:02    time: 0.017562  data: 0.000199  mem: 353  (max mem: 395)
+I20260306 15:44:50 678357 dinov3 helpers.py:105] Validation:   [ 70/164]  eta: 0:00:02    time: 0.017556  data: 0.000188  mem: 353  (max mem: 395)
+I20260306 15:44:51 678357 dinov3 helpers.py:105] Validation:   [ 80/164]  eta: 0:00:01    time: 0.017614  data: 0.000177  mem: 353  (max mem: 395)
+I20260306 15:44:51 678357 dinov3 helpers.py:105] Validation:   [ 90/164]  eta: 0:00:01    time: 0.017735  data: 0.000205  mem: 353  (max mem: 395)
+I20260306 15:44:51 678357 dinov3 helpers.py:105] Validation:   [100/164]  eta: 0:00:01    time: 0.017734  data: 0.000209  mem: 353  (max mem: 395)
+I20260306 15:44:51 678357 dinov3 helpers.py:105] Validation:   [110/164]  eta: 0:00:01    time: 0.017410  data: 0.000174  mem: 353  (max mem: 395)
+I20260306 15:44:51 678357 dinov3 helpers.py:105] Validation:   [120/164]  eta: 0:00:00    time: 0.017270  data: 0.000156  mem: 353  (max mem: 395)
+I20260306 15:44:51 678357 dinov3 helpers.py:105] Validation:   [130/164]  eta: 0:00:00    time: 0.017334  data: 0.000159  mem: 353  (max mem: 395)
+I20260306 15:44:52 678357 dinov3 helpers.py:105] Validation:   [140/164]  eta: 0:00:00    time: 0.017267  data: 0.000200  mem: 353  (max mem: 395)
+I20260306 15:44:52 678357 dinov3 helpers.py:105] Validation:   [150/164]  eta: 0:00:00    time: 0.017224  data: 0.000198  mem: 353  (max mem: 395)
+I20260306 15:44:52 678357 dinov3 helpers.py:105] Validation:   [160/164]  eta: 0:00:00    time: 0.016827  data: 0.000156  mem: 353  (max mem: 395)
+I20260306 15:44:52 678357 dinov3 helpers.py:105] Validation:   [163/164]  eta: 0:00:00    time: 0.016675  data: 0.000151  mem: 353  (max mem: 395)
+I20260306 15:44:52 678357 dinov3 helpers.py:133] Validation:  Total time: 0:00:03 (0.020215 s / it)
+W20260306 15:44:52 678357 py.warnings warnings.py:109] /fp/projects01/ec35/homes/ec-thallesss/representation_learning/src/methods/CAM_dinov3/dinov3/distributed/torch_distributed_primitives.py:99: UserWarning: Using a non-tuple sequence for multidimensional indexing is deprecated and will be changed in pytorch 2.9; use x[tuple(seq)] instead of x[seq]. In pytorch 2.9 this will be interpreted as tensor index, x[torch.tensor(seq)], which will result either in an error or a different result (Triggered internally at /pytorch/torch/csrc/autograd/python_variable_indexing.cpp:306.)
+  gathered_result[idx] = gathered_result[idx][slice_param]
+
+I20260306 15:44:52 678357 dinov3 eval.py:210] Final scores: a1: 0.352 abs_rel: 0.434 rmse: 1.056
+I20260306 15:44:52 678357 dinov3 helpers.py:105] Train:   [ 1600/38400]  eta: 0:31:14  loss: 0.233  time: 0.220041  data: 0.000117  mem: 347  (max mem: 395)
+I20260306 15:44:55 678357 dinov3 helpers.py:105] Train:   [ 1650/38400]  eta: 0:31:09  loss: 0.170  time: 0.048938  data: 0.000121  mem: 347  (max mem: 395)
+I20260306 15:44:57 678357 dinov3 helpers.py:105] Train:   [ 1700/38400]  eta: 0:31:04  loss: 0.278  time: 0.048932  data: 0.000110  mem: 347  (max mem: 395)
+I20260306 15:44:59 678357 dinov3 helpers.py:105] Train:   [ 1750/38400]  eta: 0:30:59  loss: 0.225  time: 0.048246  data: 0.000116  mem: 347  (max mem: 395)
+I20260306 15:45:02 678357 dinov3 helpers.py:105] Train:   [ 1800/38400]  eta: 0:30:54  loss: 0.341  time: 0.048309  data: 0.000110  mem: 347  (max mem: 395)
+I20260306 15:45:04 678357 dinov3 helpers.py:105] Train:   [ 1850/38400]  eta: 0:30:49  loss: 0.178  time: 0.048184  data: 0.000127  mem: 347  (max mem: 395)
+I20260306 15:45:07 678357 dinov3 helpers.py:105] Train:   [ 1900/38400]  eta: 0:30:44  loss: 0.300  time: 0.048346  data: 0.000117  mem: 347  (max mem: 395)
+I20260306 15:45:09 678357 dinov3 helpers.py:105] Train:   [ 1950/38400]  eta: 0:30:40  loss: 0.344  time: 0.048558  data: 0.000119  mem: 347  (max mem: 395)
+I20260306 15:45:12 678357 dinov3 helpers.py:105] Train:   [ 2000/38400]  eta: 0:30:35  loss: 0.330  time: 0.048280  data: 0.000109  mem: 347  (max mem: 395)
+I20260306 15:45:14 678357 dinov3 helpers.py:105] Train:   [ 2050/38400]  eta: 0:30:30  loss: 0.223  time: 0.047779  data: 0.000112  mem: 347  (max mem: 395)
+I20260306 15:45:16 678357 dinov3 helpers.py:105] Train:   [ 2100/38400]  eta: 0:30:26  loss: 0.184  time: 0.048062  data: 0.000111  mem: 347  (max mem: 395)
+I20260306 15:45:19 678357 dinov3 helpers.py:105] Train:   [ 2150/38400]  eta: 0:30:22  loss: 0.262  time: 0.048461  data: 0.000108  mem: 347  (max mem: 395)
+I20260306 15:45:21 678357 dinov3 helpers.py:105] Train:   [ 2200/38400]  eta: 0:30:17  loss: 0.361  time: 0.047334  data: 0.000118  mem: 347  (max mem: 395)
+I20260306 15:45:24 678357 dinov3 helpers.py:105] Train:   [ 2250/38400]  eta: 0:30:13  loss: 0.259  time: 0.048332  data: 0.000117  mem: 347  (max mem: 395)
+I20260306 15:45:26 678357 dinov3 helpers.py:105] Train:   [ 2300/38400]  eta: 0:30:09  loss: 0.163  time: 0.049140  data: 0.000142  mem: 347  (max mem: 395)
+I20260306 15:45:28 678357 dinov3 helpers.py:105] Train:   [ 2350/38400]  eta: 0:30:05  loss: 0.368  time: 0.047592  data: 0.000135  mem: 347  (max mem: 395)
+I20260306 15:45:31 678357 dinov3 helpers.py:105] Train:   [ 2400/38400]  eta: 0:30:01  loss: 0.242  time: 0.048645  data: 0.000170  mem: 347  (max mem: 395)
+I20260306 15:45:33 678357 dinov3 helpers.py:105] Train:   [ 2450/38400]  eta: 0:29:57  loss: 0.219  time: 0.047618  data: 0.000127  mem: 347  (max mem: 395)
+I20260306 15:45:36 678357 dinov3 helpers.py:105] Train:   [ 2500/38400]  eta: 0:29:53  loss: 0.229  time: 0.047682  data: 0.000145  mem: 347  (max mem: 395)
+I20260306 15:45:38 678357 dinov3 helpers.py:105] Train:   [ 2550/38400]  eta: 0:29:50  loss: 0.169  time: 0.048913  data: 0.000133  mem: 347  (max mem: 395)
+I20260306 15:45:40 678357 dinov3 helpers.py:105] Train:   [ 2600/38400]  eta: 0:29:46  loss: 0.195  time: 0.048268  data: 0.000122  mem: 347  (max mem: 395)
+I20260306 15:45:43 678357 dinov3 helpers.py:105] Train:   [ 2650/38400]  eta: 0:29:42  loss: 0.246  time: 0.048220  data: 0.000125  mem: 347  (max mem: 395)
+I20260306 15:45:45 678357 dinov3 helpers.py:105] Train:   [ 2700/38400]  eta: 0:29:39  loss: 0.433  time: 0.047623  data: 0.000128  mem: 347  (max mem: 395)
+I20260306 15:45:48 678357 dinov3 helpers.py:105] Train:   [ 2750/38400]  eta: 0:29:35  loss: 0.246  time: 0.048354  data: 0.000133  mem: 347  (max mem: 395)
+I20260306 15:45:50 678357 dinov3 helpers.py:105] Train:   [ 2800/38400]  eta: 0:29:32  loss: 0.362  time: 0.048959  data: 0.000138  mem: 347  (max mem: 395)
+I20260306 15:45:52 678357 dinov3 helpers.py:105] Train:   [ 2850/38400]  eta: 0:29:28  loss: 0.156  time: 0.047306  data: 0.000149  mem: 347  (max mem: 395)
+I20260306 15:45:55 678357 dinov3 helpers.py:105] Train:   [ 2900/38400]  eta: 0:29:25  loss: 0.161  time: 0.048758  data: 0.000121  mem: 347  (max mem: 395)
+I20260306 15:45:57 678357 dinov3 helpers.py:105] Train:   [ 2950/38400]  eta: 0:29:21  loss: 0.157  time: 0.048114  data: 0.000126  mem: 347  (max mem: 395)
+I20260306 15:46:00 678357 dinov3 helpers.py:105] Train:   [ 3000/38400]  eta: 0:29:18  loss: 0.239  time: 0.047818  data: 0.000147  mem: 347  (max mem: 395)
