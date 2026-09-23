@@ -15,7 +15,7 @@ from cam.data import make_dataset, make_data_loader, DatasetWithEnumeratedTarget
 import cam.distributed as distributed
 
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def worker_init_fn(worker_id, num_workers, rank, seed):

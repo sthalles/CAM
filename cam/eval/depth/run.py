@@ -28,7 +28,7 @@ RESULTS_FILENAME = "results-depth.csv"
 MAIN_METRICS = [".*_abs_rel", ".*_a1", ".*_rmse"]
 
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def _add_dataset_prefix_to_results(results_dict: Dict[str, float], dataset_name: str):

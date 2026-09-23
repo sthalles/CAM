@@ -35,7 +35,7 @@ from cam.eval.depth.utils import setup_model_ddp
 from cam.logging import MetricLogger, SmoothedValue
 from cam.utils import fix_random_seeds
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class IterBasedTrainer:

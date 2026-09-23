@@ -18,7 +18,7 @@ import cam.distributed as distributed
 from cam.logging import cleanup_logging, setup_logging
 from cam.utils import fix_random_seeds, get_conda_env, get_sha
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 @dataclass
@@ -205,7 +205,7 @@ def setup_job(
         rank = distributed.get_rank()
         fix_random_seeds(seed + rank)
 
-    logger = logging.getLogger("dinov3")
+    logger = logging.getLogger("cam")
     logger.info("git:\n  {}\n".format(get_sha()))
 
     # Log some python info

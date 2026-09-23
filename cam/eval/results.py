@@ -14,7 +14,7 @@ from typing import IO, Any, Callable, Dict, List, Optional, Sequence, Union
 import pandas as pd
 import yaml  # type: ignore
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 # This type represents a list of results, e.g. baselines for an evaluation.

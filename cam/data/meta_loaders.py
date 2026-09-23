@@ -8,7 +8,7 @@ from typing import Any, Iterable, Iterator, List, Tuple, TypeVar
 
 import numpy as np
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 Loader = Iterable[List[Any]]
 T = TypeVar("T")
 

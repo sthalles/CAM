@@ -11,7 +11,7 @@ from typing import Optional
 
 import submitit.helpers
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 @contextlib.contextmanager

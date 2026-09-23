@@ -14,7 +14,7 @@ from torchvision.datasets.vision import StandardTransform
 
 from cam.eval.utils import extract_features
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class SubsetEx(Subset):

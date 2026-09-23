@@ -12,7 +12,7 @@ from torch import Tensor
 
 from cam.distributed import gather_all_tensors  # Gathers tensors of different sizes
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def _cat_and_gather_tensor_list(tensor_list: List[Tensor]) -> Tensor:

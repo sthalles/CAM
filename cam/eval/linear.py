@@ -44,7 +44,7 @@ from cam.eval.utils import save_results as default_save_results_func
 from cam.logging import MetricLogger, SmoothedValue
 from cam.run.init import job_context
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 RESULTS_FILENAME = "results-linear.csv"
 # Can be several keys, depending on if multiple test sets are chosen and if doing few-shot

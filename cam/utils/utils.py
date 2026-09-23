@@ -13,7 +13,7 @@ import numpy as np
 import torch
 from torch import Tensor, nn
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def cat_keep_shapes(x_list: List[Tensor]) -> Tuple[Tensor, List[Tuple[int]], List[int]]:

@@ -14,7 +14,7 @@ from torch import Tensor, nn
 from cam.layers import LayerScale, Mlp, PatchEmbed, RMSNorm, RopePositionEmbedding, SelfAttentionBlock, SwiGLUFFN
 from cam.utils import named_apply
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 ffn_layer_dict = {
     "mlp": Mlp,

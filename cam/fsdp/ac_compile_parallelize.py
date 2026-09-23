@@ -19,7 +19,7 @@ from torch.utils.checkpoint import create_selective_checkpoint_contexts
 from cam.utils import utils
 
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def get_activation_checkpoint_wrapper(cfg):

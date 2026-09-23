@@ -9,7 +9,7 @@ import numpy as np
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def align_depth_least_square(

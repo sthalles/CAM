@@ -12,7 +12,7 @@ from torchvision.transforms import v2
 
 from cam.data.transforms import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD, GaussianBlur, make_normalize_transform
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class DataAugmentationDINO(object):

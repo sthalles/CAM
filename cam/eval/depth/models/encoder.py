@@ -9,7 +9,7 @@ from enum import Enum
 from cam.eval.depth.models.embed import CenterPadding, StretchToMultiple
 from torch import Tensor, nn
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class BackboneLayersSet(Enum):

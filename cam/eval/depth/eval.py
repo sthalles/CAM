@@ -27,7 +27,7 @@ from cam.eval.depth.utils import align_depth_least_square
 from cam.eval.depth.visualization_utils import depth_tensor_to_colorized_pil, save_predictions
 
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def inverse_tta_hook(transforms: Aug):

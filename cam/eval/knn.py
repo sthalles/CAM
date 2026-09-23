@@ -40,7 +40,7 @@ from cam.eval.utils import ModelWithNormalize, average_metrics, evaluate
 from cam.eval.utils import save_results as default_save_results_func
 from cam.run.init import job_context
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 RESULTS_FILENAME = "results-knn.csv"

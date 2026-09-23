@@ -15,7 +15,7 @@ from typing import List, Sequence
 import torch
 import torch.distributed as dist
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 _DEFAULT_PROCESS_GROUP = None
 _PROCESS_SUBGROUP = None

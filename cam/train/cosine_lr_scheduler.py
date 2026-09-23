@@ -7,7 +7,7 @@ import logging
 
 import numpy as np
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class CosineScheduler(object):

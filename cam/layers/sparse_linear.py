@@ -13,7 +13,7 @@ import xformers.ops as xops
 
 from cam.utils import named_apply, named_replace
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class LinearW24(torch.nn.Linear):

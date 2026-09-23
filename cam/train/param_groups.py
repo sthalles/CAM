@@ -6,7 +6,7 @@
 import logging
 from collections import defaultdict
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def get_vit_lr_decay_rate(

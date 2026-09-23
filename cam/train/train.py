@@ -44,7 +44,7 @@ assert torch.__version__ >= (2, 1)
 torch.backends.cuda.matmul.allow_tf32 = True  # pytorch 1.12 sets this to false by default
 torch.backends.cudnn.benchmark = False  # True
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 print("torch.__version__:", torch.__version__)
 
 def get_args_parser(add_help: bool = True):

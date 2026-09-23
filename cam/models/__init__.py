@@ -16,7 +16,7 @@ from cam.layers.fp8_linear import convert_linears_to_fp8
 from . import vision_transformer as vits
 from . import convnext
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def init_fp8(model: nn.Module, args) -> nn.Module:

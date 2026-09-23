@@ -10,7 +10,7 @@ from torch import Tensor
 
 from .cam_meta_arch import CAMMetaArch
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class MultiDistillationMetaArch(CAMMetaArch):

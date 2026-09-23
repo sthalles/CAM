@@ -18,7 +18,7 @@ from cam.utils.cluster import (
 )
 from cam.utils.custom_callable import load_custom_callable
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def get_submitit_parser():

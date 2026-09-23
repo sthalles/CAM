@@ -11,7 +11,7 @@ import torch
 from torch import Tensor
 from torchmetrics import Metric
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 # corruption type (str) -> level (int) -> score (float)

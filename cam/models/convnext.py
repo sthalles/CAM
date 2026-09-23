@@ -14,7 +14,7 @@ import torch.nn.init
 from torch import Tensor, nn
 
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def drop_path(x: Tensor, drop_prob: float = 0.0, training: bool = False) -> Tensor:

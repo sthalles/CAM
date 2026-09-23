@@ -24,7 +24,7 @@ from cam.train.param_groups import fuse_params_groups, get_params_groups_with_de
 from cam.utils import count_parameters
 from cam.layers import Memory
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class CAMMetaArch(nn.Module):

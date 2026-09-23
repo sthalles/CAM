@@ -19,7 +19,7 @@ from cam.data import DatasetWithEnumeratedTargets, SamplerType, make_data_loader
 from cam.eval.accumulators import NoOpAccumulator, ResultsAccumulator
 from cam.logging import MetricLogger
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class LossType(Enum):

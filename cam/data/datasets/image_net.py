@@ -14,7 +14,7 @@ import numpy as np
 from .decoders import ImageDataDecoder, TargetDecoder
 from .extended import ExtendedVisionDataset
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 _Target = int
 
 

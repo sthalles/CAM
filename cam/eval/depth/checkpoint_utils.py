@@ -9,7 +9,7 @@ import os
 import torch
 from torch.optim.optimizer import Optimizer
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def unwrap_ddp_state_dict(model_state_dict):

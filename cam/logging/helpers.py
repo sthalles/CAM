@@ -13,7 +13,7 @@ import torch
 
 import cam.distributed as distributed
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class MetricLogger(object):

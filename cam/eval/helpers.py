@@ -13,7 +13,7 @@ from omegaconf import OmegaConf
 import cam.distributed
 from cam.eval import results
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 CONFIG_FILE_KEY = "config_file"
 EVAL_CONFIG_FNAME = "eval_config.yaml"

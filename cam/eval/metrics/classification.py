@@ -24,7 +24,7 @@ from torchmetrics.utilities.data import dim_zero_cat, select_topk
 
 from .imagenet_c import ImageNet_C_Metric
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 class ClassificationMetricType(Enum):

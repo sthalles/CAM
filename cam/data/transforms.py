@@ -9,7 +9,7 @@ from typing import Sequence
 import torch
 from torchvision.transforms import v2
 
-logger = logging.getLogger("dinov3")
+logger = logging.getLogger("cam")
 
 
 def make_interpolation_mode(mode_str: str) -> v2.InterpolationMode:
