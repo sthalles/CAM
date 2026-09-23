@@ -18,3 +18,4 @@ dist/
 .vscode/
 experiments/
 cam_vitb_pure_fifo/
+tmp/
