@@ -10,10 +10,16 @@ from typing import Any, Dict, List
 import torch
 import torch.distributed as dist
 import torch.nn as nn
-from torch.distributed._composable.fsdp import MixedPrecisionPolicy, fully_shard
+try:
+    from torch.distributed._composable.fsdp import MixedPrecisionPolicy, fully_shard
+except ImportError:
+    pass
 from torch.distributed.device_mesh import DeviceMesh, init_device_mesh
-from torch.distributed.fsdp import register_fsdp_forward_method
-from torch.distributed.fsdp._fully_shard._fsdp_state import FSDPState
+# from torch.distributed.fsdp import register_fsdp_forward_method
+try:
+    from torch.distributed.fsdp._fully_shard._fsdp_state import FSDPState
+except ImportError:
+    FSDPState = None
 from torch.utils.checkpoint import create_selective_checkpoint_contexts
 
 from cam.utils import utils
@@ -104,7 +110,7 @@ def fsdp_convnext(fsdp_config: Dict[str, Any], model: nn.Module):
         dsl.set_modules_to_forward_prefetch([stage])
         stage.set_modules_to_backward_prefetch([dsl])
     fully_shard(model, **fsdp_config, reshard_after_forward=True)
-    register_fsdp_forward_method(model, "get_intermediate_layers")
+    # register_fsdp_forward_method(model, "get_intermediate_layers")
 
 
 def fsdp_transformer(fsdp_config: Dict[str, Any], model: nn.Module):
@@ -120,7 +126,7 @@ def fsdp_transformer(fsdp_config: Dict[str, Any], model: nn.Module):
         prev_block.set_modules_to_forward_prefetch([next_block])
         next_block.set_modules_to_backward_prefetch([prev_block])
     fully_shard(model, **fsdp_config, reshard_after_forward=True)
-    register_fsdp_forward_method(model, "get_intermediate_layers")
+    # register_fsdp_forward_method(model, "get_intermediate_layers")
 
 
 def ac_compile_parallelize(
