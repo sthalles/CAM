@@ -261,7 +261,7 @@ def enable_distributed(
     if set_cuda_current_device:
         torch.cuda.set_device(torch_env.local_rank)
 
-    dist.init_process_group(backend="gloo", timeout=timeout)
+    dist.init_process_group(backend="nccl", timeout=timeout)
     dist.barrier(device_ids=[torch_env.local_rank])
 
     if restrict_print_to_main_process:
